@@ -1,7 +1,5 @@
 package p206;
 
-import com.sun.org.apache.xpath.internal.WhitespaceStrippingElementMatcher;
-
 public class Solution {
 
   public ListNode reverseList(ListNode head) {
