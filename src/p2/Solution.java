@@ -65,6 +65,9 @@ public class Solution {
     ListNodeUtil.print(l1);
     ListNodeUtil.print(l2);
 
+    assert l1 != null;
+    assert l2 != null;
+
     ListNode l3 = new Solution().addTwoNumbers(l1, l2);
     ListNodeUtil.print(l3);
   }
