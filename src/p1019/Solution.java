@@ -48,15 +48,6 @@ public class Solution {
       while (cursor != null) {
         if (cursor.val > current.val) {
           ans.add(cursor.val);
-          if (j - i > 1) {
-            for (int k = i + 1; k < j; k++) {
-              ans.add(cursor.val);
-              current = current.next;
-              i++;
-            }
-            current = current.next;
-            continue outer;
-          }
           current = current.next;
           i++;
           continue outer;
@@ -68,14 +59,14 @@ public class Solution {
       current = current.next;
       i++;
     }
-
     return ans.stream().mapToInt(Integer::intValue).toArray();
   }
 
   public static void main(String[] args) {
-//        ListNode l = ListNodeUtil.create(new int[] {2, 1, 5});
-//        ListNode l = ListNodeUtil.create(new int[] {2, 7, 4, 3, 5});
-    ListNode l = ListNodeUtil.create(new int[] {1, 7, 5, 1, 9, 2, 5, 1});
+    //        ListNode l = ListNodeUtil.create(new int[] {2, 1, 5});
+    //        ListNode l = ListNodeUtil.create(new int[] {2, 7, 4, 3, 5});
+    //    ListNode l = ListNodeUtil.create(new int[] {1, 7, 5, 1, 9, 2, 5, 1});
+    ListNode l = ListNodeUtil.create(new int[] {9, 7, 6, 7, 6, 9});
     Solution s = new Solution();
     int[] ans = s.nextLargerNodes(l);
     System.out.println(Arrays.toString(ans));
