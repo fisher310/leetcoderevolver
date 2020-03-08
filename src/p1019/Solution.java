@@ -3,10 +3,7 @@ package p1019;
 import util.ListNode;
 import util.ListNodeUtil;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 /**
  * 给出一个以头节点 head 作为第一个节点的链表。链表中的节点分别编号为：node_1, node_2, node_3, ... 。
@@ -39,26 +36,23 @@ public class Solution {
 
   public int[] nextLargerNodes(ListNode head) {
     List<Integer> ans = new ArrayList<>();
+    LinkedList<Integer> stack = new LinkedList<>();
+    ArrayList<Integer> data = new ArrayList<>();
+
     ListNode current = head;
-    int i = 0;
-    outer:
+    int index = 0;
     while (current != null) {
-      ListNode cursor = current.next;
-      int j = i + 1;
-      while (cursor != null) {
-        if (cursor.val > current.val) {
-          ans.add(cursor.val);
-          current = current.next;
-          i++;
-          continue outer;
-        }
-        j++;
-        cursor = cursor.next;
-      }
+      data.add(current.val);
       ans.add(0);
+      while (!stack.isEmpty() && current.val > data.get(stack.getFirst())) {
+        Integer pop = stack.removeFirst();
+        ans.set(pop, current.val);
+      }
+      stack.addFirst(index);
+      index++;
       current = current.next;
-      i++;
     }
+
     return ans.stream().mapToInt(Integer::intValue).toArray();
   }
 
