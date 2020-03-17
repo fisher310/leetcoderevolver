@@ -9,7 +9,7 @@ public class TreeNode {
         this.val = x;
     }
 
-    public static TreeNode creatTreeNode(Integer[] input) {
+    public static TreeNode createTreeNode(Integer[] input) {
         if (input == null || input.length == 0) {
             return null;
         }
