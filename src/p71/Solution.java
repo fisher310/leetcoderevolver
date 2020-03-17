@@ -19,69 +19,35 @@ import java.util.Map;
 public class Solution {
 
   public String simplifyPath(String path) {
-    LinkedList<Character> stack = new LinkedList<>();
-    LinkedList<Character> point = new LinkedList<>();
-
     if (path == null || path.length() == 0) {
       return "";
     }
-
-    for (int i = 0, n = path.length(); i < n; i++) {
-      char c = path.charAt(i);
-      if (c == '.') {
-        point.addFirst(c);
-      } else if (c == '/') {
-        processPoint(stack, point);
-
-        if (!stack.isEmpty() && stack.getFirst() == '/') {
-          // do nothing
-        } else {
-          stack.addFirst(c);
-        }
-      } else {
-        while (!point.isEmpty()) {
-          stack.addFirst(point.removeFirst());
-        }
-        stack.addFirst(c);
+    LinkedList<String> stack = new LinkedList<>();
+    String[] strs = path.split("/");
+    for (String s : strs) {
+      switch (s) {
+        case "":
+        case ".":
+          break;
+        case "..":
+          if (stack.isEmpty()) {
+            continue;
+          }
+          stack.removeFirst();
+          break;
+        default:
+          stack.addFirst(s);
       }
     }
-
-    StringBuilder sb = new StringBuilder();
-    processPoint(stack, point);
-
-    if (!stack.isEmpty() && stack.getFirst() == '/') {
-      stack.removeFirst();
+    if (stack.isEmpty()) {
+      return "/";
     }
-    if (stack.isEmpty() || stack.getLast() != '/') {
-      sb.append('/');
-    }
+    StringBuilder sb = new StringBuilder("");
     while (!stack.isEmpty()) {
+      sb.append("/");
       sb.append(stack.removeLast());
     }
     return sb.toString();
-  }
-
-  private void processPoint(LinkedList<Character> stack, LinkedList<Character> point) {
-    if (!point.isEmpty()) {
-      switch (point.size()) {
-        case 1:
-          point.clear();
-          break;
-        case 2:
-          if (!stack.isEmpty() && stack.getFirst() == '/') {
-            stack.removeFirst();
-          }
-          while (!stack.isEmpty() && stack.getFirst() != '/') {
-            stack.removeFirst();
-          }
-          point.clear();
-          break;
-        default:
-          while (!point.isEmpty()) {
-            stack.addFirst(point.removeFirst());
-          }
-      }
-    }
   }
 
   public static void main(String[] args) {
@@ -93,7 +59,7 @@ public class Solution {
     //        String path = "/a//b////c/d//././/..";
     //    String path = "/..";
     //    String path = "/a/./b/../../c/";
-    String path = "/..hidden";
+    // String path = "/..hidden";
     Map<String, String> tests = new HashMap<>();
     tests.put("/home/", "/home");
     tests.put("/../", "/");
@@ -109,6 +75,8 @@ public class Solution {
             String.format(
                 "input [%s], expected [%s], but get [%s]",
                 entry.getKey(), entry.getValue(), actual));
+      } else {
+        System.out.println(String.format("input [%s] test is ok", entry.getKey()));
       }
     }
   }

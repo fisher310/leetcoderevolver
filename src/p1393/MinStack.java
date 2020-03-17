@@ -1,6 +1,5 @@
 package p1393;
 
-import java.util.*;
 
 public class MinStack {
 
