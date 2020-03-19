@@ -27,7 +27,7 @@ public class Solution {
     public static void main(String[] args) {
         // TreeNode root = TreeNode.creatTreeNode(new Integer[]{5,1,4,null, null, 3,
         // 6});
-        TreeNode root = TreeNode.createTreeNode(new Integer[] { 10, 5, 15, null, null, 6, 20 });
+        TreeNode root = TreeNode.createFullTreeNode(new Integer[] { 10, 5, 15, null, null, 6, 20 });
         Solution s = new Solution();
         System.out.println(s.isValidBST(root));
     }

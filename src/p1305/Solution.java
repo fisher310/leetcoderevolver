@@ -19,24 +19,12 @@ public class Solution {
       return a;
     }
     List<Integer> result = new ArrayList<>(capacity);
-    for (int i = 0, j = 0, k = 0; k < capacity; k++) {
-      if (i >= a.size() && j < b.size()) {
-        result.add(b.get(j++));
-      }
-      if (i < a.size() && j >= b.size()) {
+    int i = 0, j = 0;
+    while (i < a.size() || j < b.size()) {
+      if (i < a.size() && (j >= b.size() || a.get(i) <= b.get(j))) {
         result.add(a.get(i++));
-      }
-
-      if (i < a.size() && j < b.size()) {
-        int va = a.get(i);
-        int vb = b.get(j);
-        if (va < vb) {
-          result.add(va);
-          i++;
-        } else {
-          result.add(vb);
-          j++;
-        }
+      } else {
+        result.add(b.get(j++));
       }
     }
 
@@ -57,8 +45,8 @@ public class Solution {
   }
 
   public static void main(String[] args) {
-    TreeNode root1 = TreeNode.createTreeNode(new Integer[] {});
-    TreeNode root2 = TreeNode.createTreeNode(new Integer[] {5, 1, 7, 0, 2});
+    TreeNode root1 = TreeNode.createFullTreeNode(new Integer[] {2, 1, 4});
+    TreeNode root2 = TreeNode.createFullTreeNode(new Integer[] {1, 0, 3});
     Solution s = new Solution();
     System.out.println(s.getAllElements(root1, root2));
   }

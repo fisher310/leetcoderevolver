@@ -1,21 +1,24 @@
 package p169;
 
-import java.util.HashMap;
-import java.util.Map;
-
 public class Solution {
-    public int majorityElement(int[] nums) {
-        Map<Integer, Integer> map = new HashMap<>();
-        if (nums.length == 1) {
-            return nums[0];
-        }
-        for (int i = 0, n = nums.length; i< n; i++) {
-            int v = nums[i];
-            Integer old = map.put(v, map.getOrDefault(v, 0) + 1);
-            if (old != null && old + 1 > n /2) {
-                return v;
-            }
-        }
-        return 0;
+  public int majorityElement(int[] nums) {
+    Integer major = null, count = 0;
+    for (int num : nums) {
+      if (major != null && num == major) {
+        count++;
+      } else if (count == 0) {
+        major = num;
+        count++;
+      } else {
+        count--;
+      }
     }
+    return major == null ? 0 : major;
+  }
+
+  public static void main(String[] args) {
+    Solution s = new Solution();
+    int majority = s.majorityElement(new int[] {1, 2, 1, 3, 1, 1, 2, 1, 5});
+    System.out.println(majority);
+  }
 }
