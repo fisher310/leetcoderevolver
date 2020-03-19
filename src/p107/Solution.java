@@ -23,6 +23,35 @@ import util.TreeNode;
  */
 public class Solution {
     public List<List<Integer>> levelOrderBottom(TreeNode root) {
+        if (root == null) {
+            return new LinkedList<>();
+        }
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.offer(root);
 
+        LinkedList<List<Integer>> ans = new LinkedList<>();
+        while (!queue.isEmpty()) {
+            int length = queue.size();
+            List<Integer> levelList = new LinkedList<>();
+            ans.addFirst(levelList);
+            for (int i = 0; i < length; i++) {
+                TreeNode node = queue.poll();
+                levelList.add(node.val);
+                if (node.left != null) {
+                    queue.offer(node.left);
+                }
+                if (node.right != null) {
+                    queue.offer(node.right);
+                }
+            }
+        }
+        return ans;
     }
+
+    public static void main(String[] args) {
+        TreeNode root = TreeNode.createTreeNode(new Integer[] { 3, 9, 20, null, null, 15, 7 });
+        Solution s = new Solution();
+        System.out.println(s.levelOrderBottom(root));
+    }
+    
 }

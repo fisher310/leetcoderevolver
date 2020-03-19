@@ -35,39 +35,28 @@ public class Solution {
         if (root == null) {
             return Collections.emptyList();
         }
-        Queue<MyNode> queue = new LinkedList<>();
-        queue.offer(new MyNode(root, 0));
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.offer(root);
         List<List<Integer>> ans = new LinkedList<>();
-        int currentLevel = -1;
-        List<Integer> levelList = null;
-        while(!queue.isEmpty()) {
-            MyNode node = queue.poll();
-            if (node.level != currentLevel) {
-                levelList = new LinkedList<>();
-                ans.add(levelList);
-                currentLevel = node.level;
+        while (!queue.isEmpty()) {
+            int length = queue.size();
+            List<Integer> levelList = new LinkedList<>();
+            ans.add(levelList);
+            for (int i = 0; i < length; i++) {
+                TreeNode node = queue.poll();
+                levelList.add(node.val);
+                if (node.left != null) {
+                    queue.offer(node.left);
+                }
+                if (node.right != null) {
+                    queue.offer(node.right);
+                }
             }
-            levelList.add(node.node.val);
-            if (node.node.left != null) {
-                queue.offer(new MyNode(node.node.left, node.level + 1));
-            }
-            if (node.node.right != null) {
-                queue.offer(new MyNode(node.node.right, node.level + 1));
-            }
-
         }
         return ans;
     }
 
-    static class MyNode {
 
-        TreeNode node;
-        int level;
-        MyNode(TreeNode node, int level) {
-            this.node = node;
-            this.level = level;
-        }
-    }
     public static void main(String[] args) {
         TreeNode root = TreeNode.createTreeNode(new Integer[]{3,9,20,null,null,15,7});
         Solution s = new Solution();
