@@ -2,56 +2,35 @@ package p687;
 
 import util.TreeNode;
 
-import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.Queue;
-import java.util.Set;
-
 public class Solution {
+
+    int ans = 0;
 
     public int longestUnivaluePath(TreeNode root) {
         if (null == root) {
             return 0;
         }
-        int max = 0;
-        Set<Integer> visited = new HashSet<>();
-        Queue<TreeNode> queue = new LinkedList<>();
-        queue.offer(root);
-        while (!queue.isEmpty()) {
-            TreeNode current = queue.poll();
-            int dfsL = 0;
-            int dfsR = 0;
-            if (current.left != null && current.val == current.left.val) {
-               dfsL= dfs(current.left, 1) ;
-            }
-            if (current.right != null && current.val == current.right.val) {
-                dfsR = dfs(current.right, 1);
-            }
-            if (dfsL + dfsR > max) {
-                max = dfsL + dfsR;
-            }
-            if (current.left != null) {
-                queue.offer(current.left);
-            }
-            if (current.right != null) {
-                queue.offer(current.right);
-            }
-        }
-        return max;
+        ans = 0;
+        dfs(root);
+        return ans;
     }
 
-    private int dfs(TreeNode node, int path) {
+    private int dfs(TreeNode node) {
         if (node == null) {
-            return path;
+            return 0;
         }
-        int left = path;
-        int right = path;
+        int leftMax = dfs(node.left);
+        int rightMax = dfs(node.right);
+
+        int left = 0;
+        int right = 0;
         if (node.left != null && node.val == node.left.val) {
-            left = dfs(node.left, path + 1);
+            left = leftMax + 1;
         }
         if (node.right != null && node.right.val == node.val) {
-            right = dfs(node.right, path + 1);
+            right = rightMax + 1;
         }
+        ans = Math.max(ans, left + right);
         return Math.max(left, right);
     }
 
