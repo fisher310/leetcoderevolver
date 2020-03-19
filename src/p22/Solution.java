@@ -22,7 +22,7 @@ public class Solution {
             return;
         }
         if (left > 0) {
-            helper(left - 1, right, "(" + s, result);
+            helper(left - 1, right, s + "(", result);
         }
         if (right > left) {
             helper(left, right - 1, s + ")", result);
@@ -32,6 +32,6 @@ public class Solution {
     public static void main(String[] args) {
 
         Solution s = new Solution();
-        System.out.println(s.generateParenthesis(3));
+        System.out.println(s.generateParenthesis(4));
     }
 }
