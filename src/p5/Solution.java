@@ -14,45 +14,33 @@ package p5;
  */
 class Solution {
   public String longestPalindrome(String s) {
-    if (s == null) {
-      return null;
+    String result = "";
+    int[] limit = {0, 0};
+    char[] ch = s.toCharArray();
+    int i = 0;
+    while (i < ch.length) {
+      i = indexOf(ch, i, limit);
     }
-    int n = s.length();
-    if (n == 0 || n == 1) {
-      return s;
-    }
-
-    int[] pd = new int[n];
-    pd[0] = 1;
-    int start = 0;
-    int end = 0;
-    outer:
-    for (int i = 1; i < n; i++) {
-      int k = pd[i - 1];
-      for (int j = 0; j <= i - k; j++) {
-        if (isPalindrome(s, j, i)) {
-          start = j;
-          end = i;
-          pd[i] = i - j + 1;
-          continue outer;
-        }
-        pd[i] = pd[i - 1];
-      }
-    }
-    return s.substring(start, end + 1);
+    result = s.substring(limit[0], limit[1]);
+    return result;
   }
 
-  boolean isPalindrome(String s, int i, int j) {
-    if (s.length() == 1) {
-      return true;
+  public int indexOf(char[] ch, int low, int[] limit) {
+    int high = low + 1;
+    while (high < ch.length && ch[high] == ch[low]) {
+      high++;
+    }
+    int result = high;
+    while (low > 0 && high < ch.length && ch[low - 1] == ch[high]) {
+      low--;
+      high++;
     }
 
-    while (i < j) {
-      if (s.charAt(i++) != s.charAt(j--)) {
-        return false;
-      }
+    if (high - low > limit[1] - limit[0]) {
+      limit[0] = low;
+      limit[1] = high;
     }
-    return true;
+    return result;
   }
 
   public static void main(String[] args) {

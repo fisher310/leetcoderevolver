@@ -4,9 +4,8 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 
 /**
  * 给定整数数组 A，每次 move 操作将会选择任意 A[i]，并将其递增 1。
@@ -25,22 +24,24 @@ import java.util.Map;
  */
 class Solution {
   public int minIncrementForUnique(int[] A) {
-    if (A == null || A.length == 1) return 0;
-    Map<Integer, Integer> map = new HashMap<>(A.length);
-    int total = 0;
-    for (int a : A) {
-      if (!map.containsKey(a)) {
-        map.put(a, 1);
-        continue;
-      }
+    if (A == null || A.length == 0 || A.length == 1) return 0;
 
-      while (map.containsKey(a)) {
-        total++;
-        a++;
+    int total = 0, taken = 0;
+
+    Arrays.sort(A);
+    for (int i = 1; i < A.length; i++) {
+      if (A[i] == A[i - 1]) {
+        taken++;
+        total -= A[i];
+      } else {
+        int give = Math.min(taken, A[i] - A[i - 1] - 1);
+
+        total += give * (1 + give) / 2 + give * A[i - 1];
+        taken -= give;
       }
-      map.put(a, 1);
     }
 
+    total += taken * (1 + taken) / 2 + taken * A[A.length - 1];
     return total;
   }
 
@@ -69,6 +70,6 @@ class Solution {
     long start = System.currentTimeMillis();
     int count = s.minIncrementForUnique(testCase);
     long duration = System.currentTimeMillis() - start;
-    System.out.println(count + ", duration:" + duration / 1000 + "s");
+    System.out.println(count + ", duration:" + duration + "s");
   }
 }
