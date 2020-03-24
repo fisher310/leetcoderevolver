@@ -33,7 +33,7 @@ import java.util.Arrays;
  * <p>来源：力扣（LeetCode） 链接：https://leetcode-cn.com/problems/distribute-candies-to-people
  * 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
  */
-public class Solution {
+class Solution {
 
   public int[] distributeCandies(int candies, int num_people) {
     int[] ans = new int[num_people];

@@ -1,6 +1,6 @@
 package p52;
 
-public class Solution {
+class Solution {
   //    Set<Integer> colSet = new HashSet<>();
   //    Set<Integer> slahSet = new HashSet<>();
   //    Set<Integer> backSlashSet = new HashSet<>();

@@ -3,7 +3,7 @@ package p8;
 /**
  *
  */
-public class Solution {
+class Solution {
   public int myAtoi(String str) {
     if (null == str) {
       return 0;

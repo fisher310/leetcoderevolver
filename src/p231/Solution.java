@@ -1,6 +1,6 @@
 package p231;
 
-public class Solution {
+class Solution {
     public boolean isPowerOfTwo(int n) {
         long m = n;
         return m != 0 && (m & (m - 1)) == 0;

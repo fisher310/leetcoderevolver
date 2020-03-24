@@ -2,8 +2,10 @@ package p36;
 
 import java.util.HashSet;
 
-/** 验证数独 */
-public class Solution {
+/**
+ * 验证数独
+ */
+class Solution {
     public boolean isValidSudoku(char[][] board) {
         HashSet[] rowSet = new HashSet[9];
         HashSet[] colSet = new HashSet[9];

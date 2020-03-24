@@ -12,7 +12,7 @@ import java.util.HashSet;
  * 数字 1-9 在每一个以粗实线分隔的 3x3 宫内只能出现一次。 <br>
  * 空白格用 '.' 表示。
  */
-public class Solution {
+class Solution {
   HashSet[] rowSets = new HashSet[9];
   HashSet[] colSets = new HashSet[9];
   HashSet[][] blockSets = new HashSet[3][3];

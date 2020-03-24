@@ -23,7 +23,7 @@ package p836;
  * <p>来源：力扣（LeetCode） 链接：https://leetcode-cn.com/problems/rectangle-overlap
  * 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
  */
-public class Solution {
+class Solution {
   public boolean isRectangleOverlap(int[] rec1, int[] rec2) {
     return !(rec1[2] <= rec2[0] || rec1[0] >= rec2[2] || rec1[1] >= rec2[3] || rec1[3] <= rec2[1]);
   }
@@ -32,7 +32,7 @@ public class Solution {
 
     Solution s = new Solution();
     // true
-    System.out.println(s.isRectangleOverlap(new int[] {0, 0, 2, 2}, new int[] {1, 1, 3, 3}));
+    System.out.println(s.isRectangleOverlap(new int[]{0, 0, 2, 2}, new int[]{1, 1, 3, 3}));
     // false
     System.out.println(s.isRectangleOverlap(new int[] {0, 0, 1, 1}, new int[] {1, 0, 2, 1}));
     // true

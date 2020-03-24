@@ -1,9 +1,9 @@
 package p994;
 
-public class Solution {
+class Solution {
 
   public int orangesRotting(int[][] grid) {
-    int[][] orientation = new int[][] {{-1, 0}, {0, -1}, {1, 0}, {0, 1}};
+    int[][] orientation = new int[][]{{-1, 0}, {0, -1}, {1, 0}, {0, 1}};
     boolean hasBad = false;
     int count = -1;
 

@@ -1,7 +1,7 @@
 package p409;
 
-import java.util.Map;
 import java.util.HashMap;
+import java.util.Map;
 /**
  * 给定一个包含大写字母和小写字母的字符串，找到通过这些字母构造成的最长的回文串。
  *
@@ -17,7 +17,7 @@ import java.util.HashMap;
  *
  * <p>解释: 我们可以构造的最长的回文串是"dccaccd", 它的长度是 7。
  */
-public class Solution {
+class Solution {
     public int longestPalindrome(String s) {
         Map<Character, Integer> map = new HashMap<>();
         for (Character c : s.toCharArray()) {

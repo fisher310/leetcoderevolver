@@ -1,6 +1,9 @@
 package p51;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 /**
  * n 皇后问题研究的是如何将 n 个皇后放置在 n×n 的棋盘上，并且使皇后彼此之间不能相互攻击。
@@ -20,7 +23,7 @@ import java.util.*;
  * "...Q", <br>
  * "Q...", <br>
  * "..Q."], <br>
- * 
+ *
  * ["..Q.", // 解法 2 <br>
  * "Q...", <br>
  * "...Q", <br>
@@ -28,7 +31,7 @@ import java.util.*;
  * ] <br>
  * 解释: 4 皇后问题存在两个不同的解法。
  */
-public class Solution {
+class Solution {
     Set<Integer> colSet = new HashSet<>();
     Set<Integer> slashSet = new HashSet<>();
     Set<Integer> backSlashSet = new HashSet<>();

@@ -2,7 +2,7 @@ package p599;
 
 import java.util.*;
 
-public class Solution {
+class Solution {
   public String[] findRestaurant(String[] list1, String[] list2) {
     /*    int min = Integer.MAX_VALUE;
     Set<String> result = new HashSet<>();

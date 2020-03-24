@@ -14,33 +14,29 @@ package p5;
  */
 class Solution {
   public String longestPalindrome(String s) {
-    String result = "";
-    int[] limit = {0, 0};
+
+    if (s == null || s.length() == 0) return "";
+
     char[] ch = s.toCharArray();
-    int i = 0;
-    while (i < ch.length) {
-      i = indexOf(ch, i, limit);
+    int start = 0, end = 0;
+    for (int i = 0; i < s.length(); i++) {
+      int len1 = expandCenter(ch, i, i); // 奇数情况
+      int len2 = expandCenter(ch, i, i + 1); // 偶数情况
+      int len = Math.max(len1, len2);
+      if (len > end - start) {
+        start = i - (len - 1) / 2;
+        end = i + (len) / 2;
+      }
     }
-    result = s.substring(limit[0], limit[1]);
-    return result;
+    return s.substring(start, end + 1);
   }
 
-  public int indexOf(char[] ch, int low, int[] limit) {
-    int high = low + 1;
-    while (high < ch.length && ch[high] == ch[low]) {
-      high++;
+  private int expandCenter(char[] ch, int lower, int higher) {
+    while (lower >= 0 && higher < ch.length && ch[lower] == ch[higher]) {
+      lower--;
+      higher++;
     }
-    int result = high;
-    while (low > 0 && high < ch.length && ch[low - 1] == ch[high]) {
-      low--;
-      high++;
-    }
-
-    if (high - low > limit[1] - limit[0]) {
-      limit[0] = low;
-      limit[1] = high;
-    }
-    return result;
+    return higher - lower - 1;
   }
 
   public static void main(String[] args) {

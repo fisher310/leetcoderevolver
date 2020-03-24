@@ -23,7 +23,7 @@ import java.util.List;
  * <p>来源：力扣（LeetCode） 链接：https://leetcode-cn.com/problems/he-wei-sde-lian-xu-zheng-shu-xu-lie-lcof
  * 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
  */
-public class Solution {
+class Solution {
   public int[][] findContinuousSequence(int target) {
     List<int[]> ans = new ArrayList<int[]>();
     for (int i = 1, n = target / 2 + 1; i < n; i++) {

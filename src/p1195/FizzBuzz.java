@@ -3,7 +3,7 @@ package p1195;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.IntConsumer;
 
-public class FizzBuzz {
+class FizzBuzz {
     private int n;
 
     private AtomicInteger current;

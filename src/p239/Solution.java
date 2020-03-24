@@ -1,6 +1,8 @@
 package p239;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.Deque;
+import java.util.LinkedList;
 
 /**
  * 给定一个数组 nums，有一个大小为 k 的滑动窗口从数组的最左侧移动到数组的最右侧。你只可以看到在滑动窗口内的 k 个数字。滑动窗口每次只向右移动一位。
@@ -29,11 +31,11 @@ import java.util.*;
  * <p>来源：力扣（LeetCode） 链接：https://leetcode-cn.com/problems/sliding-window-maximum
  * 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
  */
-public class Solution {
+class Solution {
 
   public int[] maxSlidingWindow(int[] nums, int k) {
     if (nums == null || nums.length == 0) {
-      return new int[] {};
+      return new int[]{};
     }
     Deque<Integer> window = new LinkedList<>();
     //    List<Integer> result = new ArrayList<>(nums.length - k);

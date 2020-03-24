@@ -3,7 +3,7 @@ package p229;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Solution {
+class Solution {
   public List<Integer> majorityElement(int[] nums) {
     if (nums == null || nums.length == 0) {
       return new ArrayList<>();

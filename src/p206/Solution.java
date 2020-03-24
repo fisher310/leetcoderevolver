@@ -1,6 +1,6 @@
 package p206;
 
-public class Solution {
+class Solution {
 
   public ListNode reverseList(ListNode head) {
 

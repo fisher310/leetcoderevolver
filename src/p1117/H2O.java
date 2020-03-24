@@ -2,7 +2,7 @@ package p1117;
 
 import java.util.concurrent.Semaphore;
 
-public class H2O {
+class H2O {
 
     Semaphore h = new Semaphore(2);
     Semaphore o = new Semaphore(0);

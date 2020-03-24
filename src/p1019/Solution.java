@@ -3,7 +3,10 @@ package p1019;
 import util.ListNode;
 import util.ListNodeUtil;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * 给出一个以头节点 head 作为第一个节点的链表。链表中的节点分别编号为：node_1, node_2, node_3, ... 。
@@ -32,7 +35,7 @@ import java.util.*;
  * <p>来源：力扣（LeetCode） 链接：https://leetcode-cn.com/problems/next-greater-node-in-linked-list
  * 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
  */
-public class Solution {
+class Solution {
 
   public int[] nextLargerNodes(ListNode head) {
     List<Integer> ans = new ArrayList<>();

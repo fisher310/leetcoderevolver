@@ -2,7 +2,7 @@ package p687;
 
 import util.TreeNode;
 
-public class Solution {
+class Solution {
 
     int ans = 0;
 

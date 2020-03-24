@@ -3,9 +3,9 @@ package p1116;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Solution {
+class Solution {
     public int countCharacters(String[] words, String chars) {
-        if(words == null || words.length == 0) {
+        if (words == null || words.length == 0) {
             return 0;
         }
         Map<Character, Integer> table = new HashMap<>(chars.length());

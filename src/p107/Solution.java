@@ -1,6 +1,10 @@
 package p107;
-import java.util.*;
+
 import util.TreeNode;
+
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Queue;
 /**
  * 二叉树的层次遍历
  * 给定一个二叉树，返回其节点值自底向上的层次遍历。 （即按从叶子节点所在层到根节点所在的层，逐层从左向右遍历）
@@ -11,17 +15,17 @@ import util.TreeNode;
     3
    / \
   9  20
-    /  \
-   15   7
-返回其自底向上的层次遍历为：
+ /  \
+ 15   7
+ 返回其自底向上的层次遍历为：
 
-[
-  [15,7],
-  [9,20],
-  [3]
-]
+ [
+ [15,7],
+ [9,20],
+ [3]
+ ]
  */
-public class Solution {
+class Solution {
     public List<List<Integer>> levelOrderBottom(TreeNode root) {
         if (root == null) {
             return new LinkedList<>();

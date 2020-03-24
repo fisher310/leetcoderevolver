@@ -13,7 +13,7 @@ import java.util.Arrays;
  *
  * <p>输出: [1,2,2,3,5,6]
  */
-public class Solution {
+class Solution {
   public void merge(int[] A, int m, int[] B, int n) {
     int pa = 0, pb = 0;
     while (pb < n) {

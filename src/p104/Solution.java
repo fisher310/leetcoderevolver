@@ -8,16 +8,16 @@ import util.TreeNode;
 说明: 叶子节点是指没有子节点的节点。
 
 示例：
-给定二叉树 [3,9,20,null,null,15,7]，
+ 给定二叉树 [3,9,20,null,null,15,7]，
 
-    3
-   / \
-  9  20
-    /  \
-   15   7
-返回它的最大深度 3 。
+ 3
+ / \
+ 9  20
+ /  \
+ 15   7
+ 返回它的最大深度 3 。
  */
-public class Solution {
+class Solution {
     int ans = 0;
 
     public int maxDepth(TreeNode root) {

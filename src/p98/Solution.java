@@ -2,7 +2,7 @@ package p98;
 
 import util.TreeNode;
 
-public class Solution {
+class Solution {
     public boolean isValidBST(TreeNode root) {
         return doValid(root, null, null);
     }

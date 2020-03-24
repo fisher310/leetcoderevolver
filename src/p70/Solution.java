@@ -1,9 +1,9 @@
 package p70;
 
 /**
- * 
+ *
  */
-public class Solution {
+class Solution {
     public int climbStairs(int n) {
         int[] climb = new int[n + 1];
         climb[0] = 1;

@@ -12,7 +12,7 @@ import util.ListNodeUtil;
  *
  * <p>Given 1->2->3->4, you should return the list as 2->1->4->3.
  */
-public class Solution {
+class Solution {
   public ListNode swapPairs(ListNode head) {
     if (head == null) {
       return null;

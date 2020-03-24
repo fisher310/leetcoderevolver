@@ -5,7 +5,7 @@ import util.TreeNode;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Solution {
+class Solution {
   public List<Integer> getAllElements(TreeNode root1, TreeNode root2) {
     List<Integer> a = new ArrayList<>();
     List<Integer> b = new ArrayList<>();

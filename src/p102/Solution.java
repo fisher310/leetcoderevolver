@@ -1,12 +1,11 @@
 package p102;
 
-import java.util.ArrayList;
+import util.TreeNode;
+
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
-
-import util.TreeNode;
 
 /**
  * 二叉树层次遍历 <br>
@@ -20,17 +19,17 @@ import util.TreeNode;
    / \
   9  20
     /  \
-   15   7
-<p/>
-返回其层次遍历结果：
+ 15   7
+ <p/>
+ 返回其层次遍历结果：
 
-[
-  [3],
-  [9,20],
-  [15,7]
-]
+ [
+ [3],
+ [9,20],
+ [15,7]
+ ]
  */
-public class Solution {
+class Solution {
     public List<List<Integer>> levelOrder(TreeNode root) {
         if (root == null) {
             return Collections.emptyList();

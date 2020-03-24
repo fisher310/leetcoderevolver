@@ -1,6 +1,6 @@
 package p169;
 
-public class Solution {
+class Solution {
   public int majorityElement(int[] nums) {
     Integer major = null, count = 0;
     for (int num : nums) {
