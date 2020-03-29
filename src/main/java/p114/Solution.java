@@ -3,27 +3,14 @@ package p114;
 import util.TreeNode;
 
 class Solution {
+    TreeNode pre = null;
     public void flatten(TreeNode root) {
-        dfs(root);
-    }
-
-    TreeNode dfs(TreeNode node) {
-        if (node == null) return null;
-        if (node.left == null && node.right == null) {
-            return node;
-        }
-
-        TreeNode left = node.left;
-        TreeNode right = node.right;
-
-        node.left = null;
-        node.right = dfs(left);
-        TreeNode curr = node;
-        while (curr.right != null) {
-            curr = curr.right;
-        }
-        curr.right = dfs(right);
-        return node;
+        if (root == null) return;
+        flatten(root.right);
+        flatten(root.left);
+        root.right = pre;
+        root.left = null;
+        pre = root;
     }
 
     public static void main(String[] args) {
