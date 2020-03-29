@@ -2,33 +2,48 @@ package p437;
 
 import util.TreeNode;
 
+import java.util.ArrayList;
+import java.util.List;
+
 class Solution {
 
     int ans = 0;
 
     public int pathSum(TreeNode root, int sum) {
-        inOrder(root, sum);
+        dfs(new ArrayList<Node>(), root, sum, root);
         return ans;
     }
 
-    void find(TreeNode node, int sum, int target) {
+    void dfs(List<Node> list, TreeNode node, int target, TreeNode parent) {
         if (node == null) return;
+
+        dfs(list, node.left, target, node);
+        dfs(list, node.right, target, node);
 
         int val = node.val;
-        if (sum + val == target) {
-            ans++;
+
+        if (val == target) ans++;
+
+        for (Node nd : list) {
+            if (nd.parent == node) {
+                nd.val += val;
+                nd.parent = parent;
+                if (nd.val == target) ans++;
+            }
         }
-
-        find(node.left, sum + val, target);
-        find(node.right, sum + val, target);
+        list.add(new Node(val, parent));
     }
 
-    void inOrder(TreeNode node, int target) {
-        if (node == null) return;
-        find(node, 0, target);
-        inOrder(node.left, target);
-        inOrder(node.right, target);
+    static class Node {
+        int val;
+        TreeNode parent;
+
+        Node(int val, TreeNode parent) {
+            this.val = val;
+            this.parent = parent;
+        }
     }
+
 
     public static void main(String[] args) {
         Solution s = new Solution();
