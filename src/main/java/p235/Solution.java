@@ -7,29 +7,15 @@ import util.TreeNode;
  */
 class Solution {
 
-    private TreeNode ans;
-
     public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
-        find(root, p, q);
-        return ans;
-    }
+        if (root == null) return null;
 
-    boolean find(TreeNode root, TreeNode p, TreeNode q) {
-        if (root == null) return false;
-
-        boolean self = root.val == p.val || root.val == q.val;
-        boolean l = find(root.left, p, q);
-        if (self && l) {
-            ans = root;
-            return true;
+        if (p.val < root.val && q.val < root.val) {
+            return lowestCommonAncestor(root.left, p, q);
+        } else if (p.val > root.val && q.val > root.val) {
+            return lowestCommonAncestor(root.right, p, q);
         }
-        boolean r = find(root.right, p, q);
-        if (self && r) {
-            ans = root;
-            return true;
-        }
-        if (l && r && ans == null) ans = root;
-        return self || l || r;
+        return root;
     }
 
     public static void main(String[] args) {
