@@ -5,6 +5,9 @@ import util.TreeNode;
 import java.util.LinkedList;
 import java.util.List;
 
+/**
+ * common binary tree paths.
+ */
 class Solution {
     List<String> ans;
 
