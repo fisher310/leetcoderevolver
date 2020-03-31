@@ -1,2 +1,2 @@
 # leetcoderevolver
-every problem is in a package
+every problem is in a separate package
