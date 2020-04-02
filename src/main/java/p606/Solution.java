@@ -5,11 +5,10 @@ import util.TreeNode;
 /** 根据二叉树创建字符串 */
 class Solution {
   public String tree2str(TreeNode root) {
-    String ans = preorder(root);
-    if (ans.length() > 2) {
-      ans = ans.substring(1, ans.length() - 1);
-    }
-    return ans;
+    if (root == null) return "";
+    if (root.left == null && root.right == null) return root.val + "";
+    if (root.right == null) return root.val + "(" + tree2str(root.left) + ")";
+    return root.val + "(" + tree2str(root.left) + ")(" + tree2str(root.right) + ")";
   }
 
   private String preorder(TreeNode root) {

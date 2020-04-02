@@ -2,28 +2,16 @@ package p404;
 
 import util.TreeNode;
 
-import java.util.LinkedList;
-import java.util.Queue;
-
 class Solution {
   public int sumOfLeftLeaves(TreeNode root) {
     if (root == null) return 0;
-    Queue<TreeNode> queue = new LinkedList<>();
-    queue.offer(root);
-    int ans = 0;
-    while (!queue.isEmpty()) {
-      TreeNode node = queue.poll();
-      if (node.left != null) {
-        if (node.left.left == null && node.left.right == null) {
-          ans += node.left.val;
-        }
-        queue.offer(node.left);
-      }
-      if (node.right != null) {
-        queue.offer(node.right);
-      }
+    int val = 0;
+    if (root.left != null && root.left.left == null && root.left.right == null) {
+      val = root.left.val;
     }
-    return ans;
+    int l = sumOfLeftLeaves(root.left);
+    int r = sumOfLeftLeaves(root.right);
+    return val + l + r;
   }
 
   public static void main(String[] args) {

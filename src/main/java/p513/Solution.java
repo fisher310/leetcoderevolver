@@ -2,24 +2,24 @@ package p513;
 
 import util.TreeNode;
 
-import java.util.LinkedList;
-import java.util.Queue;
-
 class Solution {
+  int maxLevel = 0;
+  int ans;
+
   public int findBottomLeftValue(TreeNode root) {
-    Queue<TreeNode> queue = new LinkedList<>();
-    queue.offer(root);
-    TreeNode last = null;
-    while (!queue.isEmpty()) {
-      last = queue.poll();
-      if (last.right != null) {
-        queue.offer(last.right);
-      }
-      if (last.left != null) {
-        queue.offer(last.left);
-      }
+    dfs(root, 1);
+    return ans;
+  }
+
+  void dfs(TreeNode node, int level) {
+    if (node == null) return;
+    dfs(node.left, level + 1);
+
+    if (level > maxLevel) {
+      maxLevel = level;
+      ans = node.val;
     }
-    return last.val;
+    dfs(node.right, level + 1);
   }
 
   public static void main(String[] args) {

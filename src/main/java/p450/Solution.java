@@ -2,6 +2,9 @@ package p450;
 
 import util.TreeNode;
 
+/**
+ * 二叉搜索树删除节点
+ */
 class Solution {
 
   public TreeNode deleteNode(TreeNode root, int key) {
