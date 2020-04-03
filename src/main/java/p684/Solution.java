@@ -5,23 +5,12 @@ import org.junit.Assert;
 class Solution {
   public int[] findRedundantConnection(int[][] edges) {
     if (null == edges) return null;
-    int[] ufd = new int[edges.length + 1];
-    for (int i = 0; i < ufd.length; i++) {
-      ufd[i] = i;
-    }
+    UFD ufd = new UFD(edges.length + 1);
     for (int[] edge : edges) {
-      int pu = ufd[edge[0]];
-      int pv = ufd[edge[1]];
-
-      if (pu != pv) {
-        for (int i = 0; i < ufd.length; i++) {
-          if (ufd[i] == pv) {
-            ufd[i] = pu;
-          }
-        }
-      } else {
+      if (ufd.isConnected(edge[0], edge[1])) {
         return edge;
       }
+      ufd.union(edge[0], edge[1]);
     }
     return null;
   }
