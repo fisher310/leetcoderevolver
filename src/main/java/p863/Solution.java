@@ -15,44 +15,39 @@ class Solution {
     dfs(root, null);
 
     Queue<TreeNode> queue = new LinkedList<>();
-    queue.add(null);
     queue.add(target);
 
     Set<TreeNode> visited = new HashSet<>();
-    visited.add(target);
     visited.add(null);
+    visited.add(target);
 
+    List<Integer> ans = new LinkedList<>();
     int dist = 0;
     while (!queue.isEmpty()) {
-      TreeNode node = queue.poll();
-      if (node == null) {
+      int size = queue.size();
+      for (int i = 0; i < size; i++) {
+        TreeNode node = queue.poll();
         if (dist == K) {
-          List<Integer> ans = new LinkedList<>();
-          for (TreeNode n : queue) {
-            ans.add(n.val);
+          ans.add(node.val);
+        } else {
+          if (!visited.contains(node.left)) {
+            queue.offer(node.left);
+            visited.add(node.left);
           }
-          return ans;
-        }
-        queue.offer(null);
-        dist++;
-      } else {
-        if (!visited.contains(node.left)) {
-          queue.offer(node.left);
-          visited.add(node.left);
-        }
-        if (!visited.contains(node.right)) {
-          queue.offer(node.right);
-          visited.add(node.right);
-        }
-
-        TreeNode par = parent.get(node);
-        if (!visited.contains(par)) {
-          queue.offer(par);
-          visited.add(par);
+          if (node.right != null && !visited.contains(node.right)) {
+            queue.offer(node.right);
+            visited.add(node.right);
+          }
+          TreeNode par = parent.get(node);
+          if (!visited.contains(par)) {
+            queue.offer(par);
+            visited.add(par);
+          }
         }
       }
+      dist++;
     }
-    return Collections.emptyList();
+    return ans;
   }
 
   void dfs(TreeNode node, TreeNode par) {
