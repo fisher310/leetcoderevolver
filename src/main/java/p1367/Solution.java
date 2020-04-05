@@ -7,21 +7,15 @@ import util.TreeNode;
 class Solution {
 
   public boolean isSubPath(ListNode head, TreeNode root) {
-    StringBuilder s1 = new StringBuilder();
-    while (head != null) {
-      s1.append(head.val).append("#");
-      head = head.next;
-    }
-
-    return dfs(root, s1.toString(), "");
+    if (head == null) return true;
+    if (root == null) return false;
+    return contains(head, root) || isSubPath(head, root.left) || isSubPath(head, root.right);
   }
 
-  boolean dfs(TreeNode root, String s1, String s2) {
-    if (root == null) {
-      return s2.contains(s1);
-    }
-    String s = s2 + root.val + "#";
-    if (s.contains(s1)) return true;
-    return dfs(root.left, s1, s) || dfs(root.right, s1, s);
+  boolean contains(ListNode head, TreeNode root) {
+    if (head == null) return true;
+    if (root == null) return false;
+    if (head.val != root.val) return false;
+    return contains(head.next, root.left) || contains(head.next, root.right);
   }
 }
