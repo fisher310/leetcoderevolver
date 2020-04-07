@@ -1,20 +1,20 @@
 package p136;
 
-import java.util.HashMap;
-import java.util.Map;
-
-/** 只出现一次的数字 */
+/**
+ * <h>只出现一次的数字 </h>
+ *
+ * <p>a ^ 0 = a <br>
+ * a ^ a = 0 <br>
+ * a ^ b ^ a = (a ^ a) ^ b= b <br>
+ * 异或满足交换律和结合律
+ */
 class Solution {
   public int singleNumber(int[] nums) {
-    Map<Integer, Integer> count = new HashMap<>();
+    int a = 0;
     for (int n : nums) {
-      count.put(n, count.getOrDefault(n, 0) + 1);
+      a ^= n;
     }
-
-    for (Map.Entry<Integer, Integer> e : count.entrySet()) {
-      if (e.getValue() == 1) return e.getKey();
-    }
-    return 0;
+    return a;
   }
 
   public static void main(String[] args) {
