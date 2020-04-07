@@ -65,6 +65,19 @@ public class TreeNode {
     return root;
   }
 
+  public static TreeNode find(TreeNode root, int val) {
+    if (root == null) return null;
+    if (root.val == val) return root;
+    TreeNode left = find(root.left, val);
+    if (left != null) {
+      return left;
+    }
+    TreeNode right = find(root.right, val);
+    if (right != null) {
+      return right;
+    }
+    return null;
+  }
 
   public static void inOrder(TreeNode root, List<Integer> list) {
     if (root.left != null) {
