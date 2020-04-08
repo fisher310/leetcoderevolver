@@ -8,25 +8,20 @@ class Solution {
     if (null == nums || nums.length == 0) return 0;
 
     int N = nums.length;
-    int k = 0;
-    int pre = nums[0];
+    int k = 1;
     int c = 1;
     for (int i = 1; i < N; i++) {
-      if (pre == nums[i]) {
+      if (nums[i] == nums[i - 1]) {
         c++;
-        if (c <= 2) {
-          k++;
-        }
       } else {
         c = 1;
-        pre = nums[i];
-        k++;
       }
-      if (i != k) {
-        nums[k] = nums[i];
+
+      if (c <= 2) {
+        nums[k++] = nums[i];
       }
     }
-    return k + 1;
+    return k;
   }
 
   public static void main(String[] args) {
