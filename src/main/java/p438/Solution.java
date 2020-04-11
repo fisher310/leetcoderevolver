@@ -12,17 +12,20 @@ class Solution {
         int[] pm = new int[26];
         int[] sm = new int[26];
 
-        for (int i = 0; i < p.length(); i++) {
-            pm[p.charAt(i) - 'a']++;
-            sm[s.charAt(i) - 'a']++;
+        char[] sarr = s.toCharArray();
+        char[] parr = p.toCharArray();
+
+        for (int i = 0, pn = p.length(); i < pn; i++) {
+            pm[parr[i] - 'a']++;
+            sm[sarr[i] - 'a']++;
         }
 
         List<Integer> ans = new LinkedList<>();
         if (matches(pm, sm)) ans.add(0);
         int l = 0, r = p.length();
         while (r < s.length()) {
-            sm[s.charAt(r++) - 'a']++;
-            sm[s.charAt(l++) - 'a']--;
+            sm[sarr[r++] - 'a']++;
+            sm[sarr[l++] - 'a']--;
             if (matches(pm, sm)) {
                 ans.add(l);
             }
