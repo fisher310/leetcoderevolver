@@ -5,56 +5,62 @@ import java.util.Map;
 
 /** 最小覆盖子串 */
 class Solution {
-    private Map<Character, Integer> map;
-    private int count = 0;
 
     public String minWindow(String s, String t) {
-        map = new HashMap<>();
+        Map<Character, Integer> map = new HashMap<>();
         for (char c : t.toCharArray()) {
             map.put(c, map.getOrDefault(c, 0) + 1);
         }
-        count = t.length();
+        int required = map.size();
 
-        int i = 0, j = 0;
-        String ans = "";
+        int l = 0, r = 0;
+        int[] res = new int[] {-1, 0, 0};
         char[] arr = s.toCharArray();
         int len = arr.length;
-        while (i < len) {
-            if (j - i < count) {
-                if (j < len ) {
-                    j++;
-                    continue;
-                } else {
-                    break;
-                }
+        Map<Character, Integer> tmp = new HashMap<>();
+        Character loss = null;
+        int formed = 0;
+        while (r < len) {
+
+            if (map.containsKey(arr[r])) {
+                tmp.put(arr[r], tmp.getOrDefault(arr[r], 0) + 1);
             }
-            if (containsAll(arr, i, j)) {
-                if ("".equals(ans) || ans.length() > j - i) {
-                    ans = new String(arr, i, j - i);
+            if (loss != null) {
+                if (arr[r] == loss) {
+                    int cnt = tmp.getOrDefault(arr[r], 0) + 1;
+                    if (cnt >= map.get(arr[r])) {
+                        formed++;
+                    }
                 }
-                i++;
-            } else if (j < len) {
-                j++;
             } else {
-                i++;
+                formed = 0;
+                for (Map.Entry<Character, Integer> entry : tmp.entrySet()) {
+                    if (entry.getValue() >= map.get(entry.getKey())) {
+                        formed++;
+                    }
+                }
             }
-        }
 
-        return ans;
-    }
+            while (l <= r && formed == required) {
+                if (res[0] == -1 || res[0] > r - l + 1) {
+                    res = new int[] {r - l + 1, l, r};
+                }
 
-    boolean containsAll(char[] arr, int i, int j) {
-        Map<Character, Integer> tmpMap = new HashMap<>();
-        int tmpCount = 0;
-        for (int k = i; k < j; k++) {
-            Integer mc = map.get(arr[k]);
-            if (mc == null) continue;
-            Integer cnt = tmpMap.getOrDefault(arr[k], 0);
-            if (cnt < mc) {
-                tmpCount++;
-                tmpMap.put(arr[k], cnt + 1);
+                if (tmp.containsKey(arr[l])) {
+                    int newCnt = tmp.get(arr[l]) - 1;
+                    if (newCnt < map.get(arr[l])) {
+                        formed--;
+                        loss = arr[l];
+                    }
+                    tmp.put(arr[l], newCnt);
+                }
+                l++;
             }
+
+            r++;
         }
-        return tmpCount == count;
+        if (res[0] == -1) return "";
+
+        return new String(arr, res[1], res[0]);
     }
 }
