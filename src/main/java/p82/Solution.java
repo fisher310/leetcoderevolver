@@ -7,26 +7,11 @@ import util.ListNodeUtil;
 class Solution {
   public ListNode deleteDuplicates(ListNode head) {
     if (head == null) return null;
-//    ListNode dummy = new ListNode(0);
-//    dummy.next = head;
+    ListNode dummy = new ListNode(0);
+    dummy.next = head;
 
-    boolean f = false;
-    do {
-      f = false;
-      while (head.next != null && head.next.val == head.val) {
-        f = true;
-        head = head.next;
-      }
-      if (f) {
-        head = head.next;
-      }
-
-    } while (f && head != null);
-
-    if (head == null) return null;
-
-    ListNode pre = head;
-    ListNode curr = head.next;
+    ListNode pre = dummy;
+    ListNode curr = pre.next;
 
     while (curr != null) {
       boolean f1 = false;
@@ -42,7 +27,7 @@ class Solution {
       curr = curr.next;
     }
 
-    return head;
+    return dummy.next;
   }
 
   public static void main(String[] args) {
