@@ -14,15 +14,16 @@ class Solution {
     ListNode current2 = dummy2;
     while (head != null) {
       if (head.val < x) {
-        current1.next = new ListNode(head.val);
+        current1.next = head;
         current1 = current1.next;
       } else {
-        current2.next = new ListNode(head.val);
+        current2.next = head;
         current2 = current2.next;
       }
       head = head.next;
     }
 
+    current2.next = null;
     current1.next = dummy2.next;
     return dummy1.next;
   }
