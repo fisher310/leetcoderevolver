@@ -2,6 +2,9 @@ package p236;
 
 import util.TreeNode;
 
+/**
+ * 二叉树的最近公共祖先
+ */
 class Solution {
     private TreeNode ans;
 
