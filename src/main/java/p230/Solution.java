@@ -2,28 +2,29 @@ package p230;
 
 import util.TreeNode;
 
-import java.util.ArrayList;
-import java.util.List;
-
+/** 二叉搜索树中第K小的元素 */
 class Solution {
-    public int kthSmallest(TreeNode root, int k) {
-        List<Integer> list = new ArrayList<>(k);
-        dfs(root, list, k);
-        return list.get(k - 1);
-    }
 
-    void dfs(TreeNode node, List<Integer> list, int k) {
-        if (node == null || list.size() == k) {
-            return;
-        }
-        dfs(node.left, list, k);
-        list.add(node.val);
-        dfs(node.right, list, k);
-    }
+  int ans = 0;
+  int count = 0;
 
-    public static void main(String[] args) {
-        Solution s = new Solution();
-        int ans = s.kthSmallest(TreeNode.createTreeNode(new Integer[]{3, 1, 4, null, 2}), 1);
-        System.out.println(ans);
-    }
+  public int kthSmallest(TreeNode root, int k) {
+    dfs(root, k);
+    return ans;
+  }
+
+  private void dfs(TreeNode node, int k) {
+    if (node == null) return;
+    dfs(node.left, k);
+    count++;
+    if (count == k) ans = node.val;
+    if (count > k) return;
+    dfs(node.right, k);
+  }
+
+  public static void main(String[] args) {
+    Solution s = new Solution();
+    int ans = s.kthSmallest(TreeNode.createTreeNode(new Integer[] {3, 1, 4, null, 2}), 1);
+    System.out.println(ans);
+  }
 }
