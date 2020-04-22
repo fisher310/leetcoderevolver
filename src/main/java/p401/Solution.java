@@ -1,8 +1,7 @@
 package p401;
 
-import java.util.*;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 二进制手表
@@ -15,65 +14,49 @@ import java.util.stream.Stream;
  * 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
  */
 class Solution {
-    //    Set<Integer> clocks = Stream.of(1, 2, 4, 8).collect(Collectors.toSet());;
-    //
-    //    Set<Integer> minutes = Stream.of(1, 2, 4, 8, 16, 32).collect(Collectors.toSet());
-
-    int[] clocks = new int[] {1, 2, 4, 8};
-    int[] minutes = new int[] {1, 2, 4, 8, 16, 32};
-    private Set<String> ans;
-    boolean[] cVisited = new boolean[4];
-    boolean[] mVisited = new boolean[6];
+    private List<String> ans;
+    int[] nums = {1, 2, 4, 8, 1, 2, 4, 8, 16, 32};
+    boolean[] visited;
 
     public List<String> readBinaryWatch(int num) {
 
-        ans = new HashSet<>();
-        List<Integer> cList = new ArrayList<>();
-        List<Integer> mList = new ArrayList<>();
-        for (int i = 0; i <= Math.min(num, 4); i++) {
-            int j = num - i;
-            if (j > 6) {
-                continue;
-            }
-            helper(i, j, 0, 0, cList, mList);
-        }
-
+        ans = new ArrayList<>();
+        visited = new boolean[10];
+        dfs(nums, num, 0, 0, 0);
         return new ArrayList<>(ans);
     }
 
-    void helper(int i, int j, int cStart, int mStart, List<Integer> cList, List<Integer> mList) {
-        if (i == 0 && j == 0) {
-
-            int sumC = cList.size() == 0 ? 0 : cList.stream().mapToInt(Integer::intValue).sum();
-            int sumM = mList.size() == 0 ? 0 : mList.stream().mapToInt(Integer::intValue).sum();
-            if (sumC < 12 && sumM < 60) {
-                //            System.out.println(Arrays.toString(cVisited) + " sumC: " + sumC);
-                //            System.out.println(Arrays.toString(mVisited) + " sumM: " + sumM);
-                ans.add(String.format("%d:%02d", sumC, sumM));
+    void dfs(int[] nums, int step, int start, int hour, int minute) {
+        if (step == 0) {
+            if (hour < 12 && minute < 60) {
+//                ans.add(String.format("%d:%02d", hour, minute));
+                StringBuilder sb=new StringBuilder();
+                sb.append(hour);
+                sb.append(":");
+                if(minute<10){
+                    sb.append(0);
+                }
+                sb.append(minute);
+                ans.add(sb.toString());
             }
             return;
         }
 
-        if (i > 0) {
-            for (int ic = cStart; ic < clocks.length; ic++) {
-                if (!cVisited[ic]) {
-                    cList.add(clocks[ic]);
-                    cVisited[ic] = true;
-                    helper(i - 1, j, ic + 1, mStart, cList, mList);
-                    cVisited[ic] = false;
-                    cList.remove(cList.size() - 1);
+        for (int i = start; i < nums.length; i++) {
+            if (!visited[i]) {
+                visited[i] = true;
+                if (i < 4) {
+                    hour += nums[i];
+                } else {
+                    minute += nums[i];
                 }
-            }
-        }
 
-        if (j > 0) {
-            for (int jm = mStart; jm < minutes.length; jm++) {
-                if (!mVisited[jm]) {
-                    mList.add(minutes[jm]);
-                    mVisited[jm] = true;
-                    helper(i, j - 1, cStart, jm + 1, cList, mList);
-                    mVisited[jm] = false;
-                    mList.remove(mList.size() - 1);
+                dfs(nums, step - 1, i + 1, hour, minute);
+                visited[i] = false;
+                if (i < 4) {
+                    hour -= nums[i];
+                } else {
+                    minute -= nums[i];
                 }
             }
         }
@@ -81,25 +64,28 @@ class Solution {
 
     public static void main(String[] args) {
         Solution s = new Solution();
-        List<String> ans = s.readBinaryWatch(2);
+        long start = System.currentTimeMillis();
+        List<String> ans = s.readBinaryWatch(5);
+        long duration = System.currentTimeMillis() - start;
         System.out.println(ans);
-        Map<String, Integer> test =
-                ans.stream()
-                        .collect(
-                                Collectors.groupingBy(
-                                        a -> a, Collectors.reducing(0, s2 -> 1, Integer::sum)));
-        test.forEach((key, value) -> System.out.println(key + ":" + value));
-        System.out.println(ans.stream().distinct().sorted().collect(Collectors.toList()));
-        List<String> expected =
-                Stream.of(
-                                "0:03", "0:05", "0:06", "0:09", "0:10", "0:12", "0:17", "0:18",
-                                "0:20", "0:24", "0:33", "0:34", "0:36", "0:40", "0:48", "1:01",
-                                "1:02", "1:04", "1:08", "1:16", "1:32", "2:01", "2:02", "2:04",
-                                "2:08", "2:16", "2:32", "3:00", "4:01", "4:02", "4:04", "4:08",
-                                "4:16", "4:32", "5:00", "6:00", "8:01", "8:02", "8:04", "8:08",
-                                "8:16", "8:32", "9:00", "10:00")
-                        .sorted()
-                        .collect(Collectors.toList());
-        System.out.println(expected);
+        System.out.println("duration: " + duration);
+//        Map<String, Integer> test =
+//                ans.stream()
+//                        .collect(
+//                                Collectors.groupingBy(
+//                                        a -> a, Collectors.reducing(0, s2 -> 1, Integer::sum)));
+//        test.forEach((key, value) -> System.out.println(key + ":" + value));
+//        System.out.println(ans.stream().distinct().sorted().collect(Collectors.toList()));
+//        List<String> expected =
+//                Stream.of(
+//                                "0:03", "0:05", "0:06", "0:09", "0:10", "0:12", "0:17", "0:18",
+//                                "0:20", "0:24", "0:33", "0:34", "0:36", "0:40", "0:48", "1:01",
+//                                "1:02", "1:04", "1:08", "1:16", "1:32", "2:01", "2:02", "2:04",
+//                                "2:08", "2:16", "2:32", "3:00", "4:01", "4:02", "4:04", "4:08",
+//                                "4:16", "4:32", "5:00", "6:00", "8:01", "8:02", "8:04", "8:08",
+//                                "8:16", "8:32", "9:00", "10:00")
+//                        .sorted()
+//                        .collect(Collectors.toList());
+//        System.out.println(expected);
     }
 }
