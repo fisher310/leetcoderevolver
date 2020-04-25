@@ -1,6 +1,6 @@
 package p212;
 
-import java.util.List;
+import java.util.*;
 
 /**
  * 给定一个二维网格 board 和一个字典中的单词列表 words，找出所有同时在二维网格和字典中出现的单词。
@@ -23,7 +23,204 @@ import java.util.List;
  * 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
  */
 class Solution {
+    private Set<String> ans;
+
+    private int[] dx = {1, 0, -1, 0};
+    private int[] dy = {0, 1, 0, -1};
+    private int row;
+    private int col;
+    private Trie trie;
+
     public List<String> findWords(char[][] board, String[] words) {
-        return null;
+        if (board == null || board.length == 0) return Collections.emptyList();
+
+        ans = new LinkedHashSet<>();
+        trie = new Trie();
+        for (String word : words) {
+            trie.insert(word);
+        }
+        row = board.length;
+        col = board[0].length;
+        boolean[][] visited = new boolean[row][col];
+        for (int i = 0; i < row; i++) {
+            for (int j = 0; j < col; j++) {
+                visited[i][j] = true;
+                dfs(board, i, j, visited, String.valueOf(board[i][j]));
+                visited[i][j] = false;
+            }
+        }
+
+        return new ArrayList<>(ans);
+    }
+
+    private void dfs(char[][] grid, int i, int j, boolean[][] visited, String s) {
+
+        //        System.out.println(s);
+        if (!trie.startsWith(s)) return;
+        if (trie.contains(s)) {
+            ans.add(s);
+        }
+
+        for (int k = 0; k < 4; k++) {
+            int x = i + dx[k];
+            int y = j + dy[k];
+
+            if (x >= 0 && x < row && y >= 0 && y < col && !visited[x][y]) {
+                String s1 = s + grid[x][y];
+                //                System.out.println(s1);
+                visited[x][y] = true;
+                dfs(grid, x, y, visited, s1);
+                visited[x][y] = false;
+            }
+        }
+    }
+
+    private static class Trie {
+
+        private final TrieNode root;
+
+        Trie() {
+            this.root = new TrieNode((char) 0);
+        }
+
+        void insert(String s) {
+            TrieNode cur = root;
+            for (char c : s.toCharArray()) {
+                TrieNode n = null;
+                for (TrieNode node : cur.children) {
+                    if (node.value == c) {
+                        n = node;
+                        break;
+                    }
+                }
+                if (n == null) {
+                    n = new TrieNode(c);
+                    cur.addChild(n);
+                }
+                cur = n;
+            }
+            cur.isEnd = true;
+        }
+
+        boolean contains(String s) {
+            TrieNode cur = root;
+            outer:
+            for (char c : s.toCharArray()) {
+                for (TrieNode node : cur.children) {
+                    if (node.value == c) {
+                        cur = node;
+                        continue outer;
+                    }
+                }
+                return false;
+            }
+            return cur.isEnd;
+        }
+
+        boolean startsWith(String prefix) {
+            TrieNode cur = root;
+            outer:
+            for (char c : prefix.toCharArray()) {
+                for (TrieNode node : cur.children) {
+                    if (node.value == c) {
+                        cur = node;
+                        continue outer;
+                    }
+                }
+                return false;
+            }
+            return true;
+        }
+
+        private static class TrieNode {
+            char value;
+            List<TrieNode> children;
+            boolean isEnd;
+
+            TrieNode(char c) {
+                this.value = c;
+                this.children = new LinkedList<>();
+                this.isEnd = false;
+            }
+
+            void addChild(TrieNode child) {
+                this.children.add(child);
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+        Solution s = new Solution();
+        //        System.out.println(s.findWords(new char[][] {{'a', 'a'}}, new String[] {"aaa"}));
+        //        System.out.println(
+        //                s.findWords(
+        //                        new char[][] {
+        //                            {'o', 'a', 'a', 'n'},
+        //                            {'e', 't', 'a', 'e'},
+        //                            {'i', 'h', 'k', 'r'},
+        //                            {'i', 'f', 'l', 'v'}
+        //                        },
+        //                        new String[] {"oath", "pea", "eat", "rain"}));
+        //        long start = System.currentTimeMillis();
+        //        List<String> words =
+        //                s.findWords(
+        //                        new char[][] {
+        //                            {'b', 'b', 'a', 'a', 'b', 'a'},
+        //                            {'b', 'b', 'a', 'b', 'a', 'a'},
+        //                            {'b', 'b', 'b', 'b', 'b', 'b'},
+        //                            {'a', 'a', 'a', 'b', 'a', 'a'},
+        //                            {'a', 'b', 'a', 'a', 'b', 'b'}
+        //                        },
+        //                        new String[] {"abbbababaa"});
+        //        long duration = System.currentTimeMillis() - start;
+        //        System.out.println(words);
+        //        System.out.println("duration: " + duration);
+
+        System.out.println(
+                s.findWords(
+                        new char[][] {
+                            {'b', 'a', 'a', 'b', 'a', 'b'},
+                            {'a', 'b', 'a', 'a', 'a', 'a'},
+                            {'a', 'b', 'a', 'a', 'a', 'b'},
+                            {'a', 'b', 'a', 'b', 'b', 'a'},
+                            {'a', 'a', 'b', 'b', 'a', 'b'},
+                            {'a', 'a', 'b', 'b', 'b', 'a'},
+                            {'a', 'a', 'b', 'a', 'a', 'b'}
+                        },
+                        new String[] {
+                            "aab",
+                            "bbaabaabaaaaabaababaaaaababb",
+                            "aabbaaabaaabaabaaaaaabbaaaba",
+                            "babaababbbbbbbaabaababaabaaa",
+                            "bbbaaabaabbaaababababbbbbaaa",
+                            "babbabbbbaabbabaaaaaabbbaaab",
+                            "bbbababbbbbbbababbabbbbbabaa",
+                            "babababbababaabbbbabbbbabbba",
+                            "abbbbbbaabaaabaaababaabbabba",
+                            "aabaabababbbbbbababbbababbaa",
+                            "aabbbbabbaababaaaabababbaaba",
+                            "ababaababaaabbabbaabbaabbaba",
+                            "abaabbbaaaaababbbaaaaabbbaab",
+                            "aabbabaabaabbabababaaabbbaab",
+                            "baaabaaaabbabaaabaabababaaaa",
+                            "aaabbabaaaababbabbaabbaabbaa",
+                            "aaabaaaaabaabbabaabbbbaabaaa",
+                            "abbaabbaaaabbaababababbaabbb",
+                            "baabaababbbbaaaabaaabbababbb",
+                            "aabaababbaababbaaabaabababab",
+                            "abbaaabbaabaabaabbbbaabbbbbb",
+                            "aaababaabbaaabbbaaabbabbabab",
+                            "bbababbbabbbbabbbbabbbbbabaa",
+                            "abbbaabbbaaababbbababbababba",
+                            "bbbbbbbabbbababbabaabababaab",
+                            "aaaababaabbbbabaaaaabaaaaabb",
+                            "bbaaabbbbabbaaabbaabbabbaaba",
+                            "aabaabbbbaabaabbabaabababaaa",
+                            "abbababbbaababaabbababababbb",
+                            "aabbbabbaaaababbbbabbababbbb",
+                            "babbbaabababbbbbbbbbaabbabaa"
+                        }));
+
+        // ["aab","aabbbbabbaababaaaabababbaaba","abaabbbaaaaababbbaaaaabbbaab","ababaababaaabbabbaabbaabbaba"]
     }
 }
