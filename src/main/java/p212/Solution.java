@@ -44,9 +44,7 @@ class Solution {
         boolean[][] visited = new boolean[row][col];
         for (int i = 0; i < row; i++) {
             for (int j = 0; j < col; j++) {
-                visited[i][j] = true;
-                dfs(board, i, j, visited, String.valueOf(board[i][j]));
-                visited[i][j] = false;
+                dfs(board, i, j, visited, "");
             }
         }
 
@@ -54,25 +52,25 @@ class Solution {
     }
 
     private void dfs(char[][] grid, int i, int j, boolean[][] visited, String s) {
+        if (i < 0 || i >= row || j < 0 || j >= col || visited[i][j]) return;
 
-        //        System.out.println(s);
-        if (!trie.startsWith(s)) return;
-        if (trie.contains(s)) {
-            ans.add(s);
+        visited[i][j] = true;
+        String ss = s + grid[i][j];
+
+        if (!trie.startsWith(ss)) {
+            visited[i][j] = false;
+            return;
+        }
+        if (trie.contains(ss)) {
+            ans.add(ss);
         }
 
         for (int k = 0; k < 4; k++) {
             int x = i + dx[k];
             int y = j + dy[k];
-
-            if (x >= 0 && x < row && y >= 0 && y < col && !visited[x][y]) {
-                String s1 = s + grid[x][y];
-                //                System.out.println(s1);
-                visited[x][y] = true;
-                dfs(grid, x, y, visited, s1);
-                visited[x][y] = false;
-            }
+            dfs(grid, x, y, visited, ss);
         }
+        visited[i][j] = false;
     }
 
     private static class Trie {
@@ -139,7 +137,7 @@ class Solution {
 
             TrieNode(char c) {
                 this.value = c;
-                this.children = new LinkedList<>();
+                this.children = new ArrayList<>();
                 this.isEnd = false;
             }
 
