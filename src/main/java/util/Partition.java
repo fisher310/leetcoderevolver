@@ -66,6 +66,10 @@ public class Partition<E> {
         }
     }
 
+    public boolean isConnected(Position<E> p, Position<E> q) {
+        return find(p) == find(q);
+    }
+
     private Locator<E> validate(Position<E> p) {
         if (!(p instanceof Locator)) throw new IllegalArgumentException("Invalid position");
 
