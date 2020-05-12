@@ -38,15 +38,16 @@ class Solution {
 
     while (!queue.isEmpty()) {
       Node node = queue.poll();
-      if (node.list == null || node.list.size() == 0) {
-        continue;
-      }
+
       for (String w : node.list) {
         if (w.equals(endWord)) {
           return node.dis + 1;
         }
         if (!visited.contains(w)) {
-          queue.offer(new Node(node.dis + 1, map.get(w)));
+          List<String> wL = map.get(w);
+          if (null != wL && wL.size() > 0) {
+            queue.offer(new Node(node.dis + 1, wL));
+          }
           visited.add(w);
         }
       }

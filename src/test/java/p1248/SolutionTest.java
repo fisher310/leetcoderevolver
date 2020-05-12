@@ -11,6 +11,6 @@ public class SolutionTest {
         Solution s = new Solution();
 //        assertEquals(2, s.numberOfSubarrays(new int[] {1, 1, 2, 1, 1}, 3));
 //        assertEquals(0, s.numberOfSubarrays(new int[] {2, 4, 6}, 1));
-        assertEquals(16, s.numberOfSubarrays(new int[] {2, 2, 2, 1, 2, 2, 1, 2, 2, 2}, 2));
+        assertEquals(16, s.numberOfSubarrays(new int[] {2, 2, 2, 1, 2, 2, 1, 2, 2, 1}, 2));
     }
 }

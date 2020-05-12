@@ -32,7 +32,10 @@ import java.util.Queue;
  * 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
  */
 class Solution {
-  private Queue<Node> queue;
+  private Queue<int[]> queue;
+
+  private int[] dx = {1, 0, -1, 0};
+  private int[] dy = {0, -1, 0, 1};
 
   public Solution() {
     queue = new LinkedList<>();
@@ -42,28 +45,50 @@ class Solution {
     int m = matrix.length;
     int n = matrix[0].length;
     int[][] ans = new int[m][n];
+
     for (int i = 0; i < m; i++) {
       for (int j = 0; j < n; j++) {
-        int value = matrix[i][j];
-        if (value == 0) {
+        if (matrix[i][j] == 0) {
           ans[i][j] = 0;
-          continue;
+        } else {
+          ans[i][j] = Integer.MAX_VALUE / 2;
         }
-        // 这个时候 value 的值是 1, 找他的四个方向，放入到队列当中，进行广度有限的遍历
-        queue.clear();
-        offerQueue(matrix, i, j, 0, queue);
-        while (!queue.isEmpty()) {
-          Node node = queue.poll();
-          if (node.val == 0) {
-            ans[i][j] = node.path;
-            break;
-          }
-          offerQueue(matrix, node.i, node.j, node.path, queue);
+      }
+    }
+
+    // 右和下
+    for (int i = 0; i < m; i++) {
+      for (int j = 0; j < n; j++) {
+        if (i - 1 >= 0) {
+          ans[i][j] = Math.min(ans[i - 1][j] + 1, ans[i][j]);
+        }
+        if (j - 1 >= 0) {
+          ans[i][j] = Math.min(ans[i][j - 1] + 1, ans[i][j]);
+        }
+      }
+    }
+
+    // 左，上
+    for (int i = m - 1; i >= 0; i--) {
+      for (int j = n - 1; j >= 0; j--) {
+        if (i + 1 < m) {
+          ans[i][j] = Math.min(ans[i + 1][j] + 1, ans[i][j]);
+        }
+        if (j + 1 < n) {
+          ans[i][j] = Math.min(ans[i][j + 1] + 1, ans[i][j]);
         }
       }
     }
 
     return ans;
+  }
+
+  private void clearVisited(boolean[][] visited) {
+    for (int i = 0; i < visited.length; i++) {
+      for (int j = 0; j < visited[0].length; j++) {
+        visited[i][j] = false;
+      }
+    }
   }
 
   private void offerQueue(int[][] matrix, int i, int j, int path, Queue<Node> queue) {
@@ -96,8 +121,12 @@ class Solution {
   }
 
   public static void main(String[] args) {
-//    int[][] input = new int[][] {{0, 0, 0}, {0, 1, 0}, {1, 1, 1}};
-    int[][] input = new int[][] {{0, 0, 0}, {0, 1, 0}, {0, 0, 0}};
+    //    int[][] input = new int[][] {{0, 0, 0}, {0, 1, 0}, {1, 1, 1}};
+    //    int[][] input = new int[][] {{0, 0, 0}, {0, 1, 0}, {0, 0, 0}};
+    int[][] input = new int[5000][2];
+    for (int[] n : input) {
+      n[0] = 1;
+    }
 
     Solution s = new Solution();
     int[][] ans = s.updateMatrix(input);

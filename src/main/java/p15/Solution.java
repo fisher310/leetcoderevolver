@@ -33,7 +33,7 @@ class Solution {
         if (!map.containsKey(nums[j])) {
           map.put(-nums[i] - nums[j], 1);
         } else {
-            res.add(Arrays.asList(nums[i], -nums[i] - nums[j], nums[j]));
+          res.add(Arrays.asList(nums[i], -nums[i] - nums[j], nums[j]));
         }
       }
     }
@@ -42,7 +42,7 @@ class Solution {
 
   public static void main(String[] args) {
     //    int[] nums = new int[] {-1, 0, 1, 2, -1, -4};
-//        int[] nums = new int[] {0, 0, 0, 0};
+    //        int[] nums = new int[] {0, 0, 0, 0};
     int[] nums =
         new int[] {
           82597, -9243, 62390, 83030, -97960, -26521, -61011, 83390, -38677, 12333, 75987, 46091,

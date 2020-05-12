@@ -29,11 +29,11 @@ class Solution {
     void dfs(int[] nums, int step, int start, int hour, int minute) {
         if (step == 0) {
             if (hour < 12 && minute < 60) {
-//                ans.add(String.format("%d:%02d", hour, minute));
-                StringBuilder sb=new StringBuilder();
+                //                ans.add(String.format("%d:%02d", hour, minute));
+                StringBuilder sb = new StringBuilder();
                 sb.append(hour);
                 sb.append(":");
-                if(minute<10){
+                if (minute < 10) {
                     sb.append(0);
                 }
                 sb.append(minute);
@@ -46,18 +46,12 @@ class Solution {
             if (!visited[i]) {
                 visited[i] = true;
                 if (i < 4) {
-                    hour += nums[i];
-                } else {
-                    minute += nums[i];
-                }
+                    dfs(nums, step - 1, i + 1, hour + nums[i], minute);
 
-                dfs(nums, step - 1, i + 1, hour, minute);
-                visited[i] = false;
-                if (i < 4) {
-                    hour -= nums[i];
                 } else {
-                    minute -= nums[i];
+                    dfs(nums, step - 1, i + 1, hour, minute + nums[i]);
                 }
+                visited[i] = false;
             }
         }
     }
@@ -69,23 +63,29 @@ class Solution {
         long duration = System.currentTimeMillis() - start;
         System.out.println(ans);
         System.out.println("duration: " + duration);
-//        Map<String, Integer> test =
-//                ans.stream()
-//                        .collect(
-//                                Collectors.groupingBy(
-//                                        a -> a, Collectors.reducing(0, s2 -> 1, Integer::sum)));
-//        test.forEach((key, value) -> System.out.println(key + ":" + value));
-//        System.out.println(ans.stream().distinct().sorted().collect(Collectors.toList()));
-//        List<String> expected =
-//                Stream.of(
-//                                "0:03", "0:05", "0:06", "0:09", "0:10", "0:12", "0:17", "0:18",
-//                                "0:20", "0:24", "0:33", "0:34", "0:36", "0:40", "0:48", "1:01",
-//                                "1:02", "1:04", "1:08", "1:16", "1:32", "2:01", "2:02", "2:04",
-//                                "2:08", "2:16", "2:32", "3:00", "4:01", "4:02", "4:04", "4:08",
-//                                "4:16", "4:32", "5:00", "6:00", "8:01", "8:02", "8:04", "8:08",
-//                                "8:16", "8:32", "9:00", "10:00")
-//                        .sorted()
-//                        .collect(Collectors.toList());
-//        System.out.println(expected);
+        //        Map<String, Integer> test =
+        //                ans.stream()
+        //                        .collect(
+        //                                Collectors.groupingBy(
+        //                                        a -> a, Collectors.reducing(0, s2 -> 1,
+        // Integer::sum)));
+        //        test.forEach((key, value) -> System.out.println(key + ":" + value));
+        //        System.out.println(ans.stream().distinct().sorted().collect(Collectors.toList()));
+        //        List<String> expected =
+        //                Stream.of(
+        //                                "0:03", "0:05", "0:06", "0:09", "0:10", "0:12", "0:17",
+        // "0:18",
+        //                                "0:20", "0:24", "0:33", "0:34", "0:36", "0:40", "0:48",
+        // "1:01",
+        //                                "1:02", "1:04", "1:08", "1:16", "1:32", "2:01", "2:02",
+        // "2:04",
+        //                                "2:08", "2:16", "2:32", "3:00", "4:01", "4:02", "4:04",
+        // "4:08",
+        //                                "4:16", "4:32", "5:00", "6:00", "8:01", "8:02", "8:04",
+        // "8:08",
+        //                                "8:16", "8:32", "9:00", "10:00")
+        //                        .sorted()
+        //                        .collect(Collectors.toList());
+        //        System.out.println(expected);
     }
 }

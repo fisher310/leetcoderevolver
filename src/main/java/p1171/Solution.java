@@ -3,48 +3,30 @@ package p1171;
 import util.ListNode;
 import util.ListNodeUtil;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 /** 1171. 从链表中删去总和值为零的连续节点 */
 class Solution {
 
   public ListNode removeZeroSumSublists(ListNode head) {
-    if (head == null) return null;
-    List<ListNode> list = new ArrayList<>();
-    ListNode curr = head;
-    while (curr != null) {
-      list.add(curr);
-      curr = curr.next;
+    ListNode dummy = new ListNode(0);
+    dummy.next = head;
+    Map<Integer, ListNode> map = new HashMap<>();
+    ListNode curr = dummy.next;
+    int sum = 0;
+    for (ListNode d = dummy; d != null; d = d.next) {
+      sum += d.val;
+      map.put(sum, d);
     }
 
-    int l = 0;
-    int r = 0;
-    outer:
-    for (int i = 0; i < list.size(); ) {
-      int sum = 0;
-      for (int j = i; j < list.size(); j++) {
-        sum += list.get(j).val;
-        if (sum == 0) {
-          for (int a = j - i; a >= 0; a--) {
-            list.remove(a + i);
-          }
-          i = Math.max(i - 1, 0);
-          continue outer;
-        }
-      }
-      i++;
+    sum = 0;
+    for (ListNode node = dummy; node != null; node = node.next) {
+      sum += node.val;
+      node.next = map.get(sum).next;
     }
 
-    if (list.size() == 0) return null;
-    ListNode ans = list.get(0);
-
-    for (int i = 1; i < list.size(); i++) {
-      list.get(i - 1).next = list.get(i);
-    }
-    list.get(list.size() - 1).next = null;
-
-    return ans;
+    return dummy.next;
   }
 
   public static void main(String[] args) {
