@@ -1,4 +1,4 @@
-package p10dot01;
+package m10dot01;
 
 import java.util.Arrays;
 

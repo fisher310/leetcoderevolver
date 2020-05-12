@@ -1,4 +1,4 @@
-package p17dot16;
+package m17dot16;
 
 import org.junit.Test;
 
