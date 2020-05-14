@@ -7,6 +7,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class LRUCache<K, V> extends LinkedHashMap<K, V> {
 
     private final int maxSize;
+    private AtomicInteger total;
     private AtomicInteger hits;
 
     public LRUCache(int maxSize) {
@@ -16,6 +17,7 @@ public class LRUCache<K, V> extends LinkedHashMap<K, V> {
     public LRUCache(int maxSize, int initialCapacity, float loadFactor, boolean accessOrder) {
         super(initialCapacity, loadFactor, accessOrder);
         this.maxSize = maxSize;
+        this.total = new AtomicInteger(0);
         hits = new AtomicInteger(0);
     }
 
@@ -26,11 +28,16 @@ public class LRUCache<K, V> extends LinkedHashMap<K, V> {
 
     @Override
     public V get(Object key) {
+        total.incrementAndGet();
         V result = super.get(key);
         if (result != null) {
             hits.incrementAndGet();
         }
         return result;
+    }
+
+    public double hitsRate() {
+        return hits.get()/(double)total.get();
     }
 
     public static void main(String[] args) {
@@ -44,5 +51,6 @@ public class LRUCache<K, V> extends LinkedHashMap<K, V> {
         System.out.println(cache.get("world"));
         cache.put("dial", "nummber");
 
+        System.out.println(cache.hitsRate());
     }
 }
