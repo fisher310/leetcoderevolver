@@ -14,31 +14,21 @@ class StreamChecker {
 
     TrieImp trie;
 
-    String history;
+    StringBuilder history;
 
     public StreamChecker(String[] words) {
         trie = new TrieImp();
+        history = new StringBuilder();
 
         for (String word : words) {
-            trie.insert(reverse(word));
+            trie.insert(word);
         }
     }
 
     public boolean query(char letter) {
-        history = letter + history;
+        history.append(letter);
         return trie.search(history);
     }
-
-    private String reverse(String str) {
-        char[] arr = str.toCharArray();
-        for (int l = 0, r = arr.length - 1; l < r; l++, r--) {
-            char temp = arr[l];
-            arr[l] = arr[r];
-            arr[r] = temp;
-        }
-        return new String(arr);
-    }
-
 
     private static class TrieImp {
 
@@ -60,7 +50,7 @@ class StreamChecker {
 
         public void insert(String word) {
             TrieNode currentNode = root;
-            for (int i = 0; i < word.length(); i++) {
+            for (int i = word.length() -1 ; i >= 0; i--) {
                 TrieNode node = currentNode.child[word.charAt(i) - 'a'];
                 if (node == null) {
                     node = new TrieNode();
@@ -71,10 +61,10 @@ class StreamChecker {
             currentNode.end = true;
         }
 
-        public boolean search(String word) {
+        public boolean search(StringBuilder sb) {
             TrieNode currentNode = root;
-            for (int i = 0; i < word.length(); i++) {
-                char ch = word.charAt(i);
+            for (int i = sb.length() - 1; i >= 0; i--) {
+                char ch = sb.charAt(i);
                 TrieNode node = currentNode.child[ch - 'a'];
                 if (node == null) {
                     return false;
