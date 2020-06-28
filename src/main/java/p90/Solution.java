@@ -5,9 +5,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-/**
- * 子集 II
- */
+/** 子集 II */
 class Solution {
 
     public List<List<Integer>> subsetsWithDup(int[] nums) {
@@ -16,41 +14,30 @@ class Solution {
         Arrays.sort(nums);
 
         List<List<Integer>> ans = new ArrayList<>();
-        ans.add(new ArrayList<>(0));
         ArrayList<Integer> list = new ArrayList<>();
-        for (int k = 1; k <= nums.length; k++) {
-            dfs(nums, 0, k, list, ans);
-        }
+        dfs(nums, 0, list, ans);
 
         return ans;
     }
 
-    private void dfs(int[] nums, int start, int k,  List<Integer> list, List<List<Integer>> ans) {
-        if (k == list.size()) {
-            ans.add(new ArrayList<>(list));
-            return;
-        }
+    private void dfs(int[] nums, int start, List<Integer> list, List<List<Integer>> ans) {
+        ans.add(new ArrayList<>(list));
         if (start >= nums.length) return;
-        int pre = nums[start];
-        outer:
         for (int i = start; i < nums.length; i++) {
-            while (i > start && nums[i] == pre) {
-                if (++i >= nums.length)
-                    break outer;
+            if (i > start && nums[i] == nums[i - 1]) {
+                continue;
             }
             list.add(nums[i]);
-            dfs(nums, i + 1, k, list, ans);
+            dfs(nums, i + 1, list, ans);
             list.remove(list.size() - 1);
-
-            pre = nums[i];
         }
     }
 
     public static void main(String[] args) {
         Solution s = new Solution();
-        System.out.println(s.subsetsWithDup(new int[]{1,2,2}));
-        System.out.println(s.subsetsWithDup(new int[]{1,2,3}));
-        System.out.println(s.subsetsWithDup(new int[]{}));
-        System.out.println(s.subsetsWithDup(new int[]{1,2,2,1,1}));
+        System.out.println(s.subsetsWithDup(new int[] {1, 2, 2}));
+        System.out.println(s.subsetsWithDup(new int[] {1, 2, 3}));
+        System.out.println(s.subsetsWithDup(new int[] {}));
+        System.out.println(s.subsetsWithDup(new int[] {1, 2, 2, 1, 1}));
     }
 }
