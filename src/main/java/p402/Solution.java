@@ -2,6 +2,9 @@ package p402;
 
 import java.util.LinkedList;
 
+/**
+ * 移除K个数字
+ */
 class Solution {
     public String removeKdigits(String num, int k) {
 
