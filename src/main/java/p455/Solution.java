@@ -1,8 +1,6 @@
 package p455;
 
 import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
 
 /**
  * 分发饼干
@@ -14,20 +12,16 @@ class Solution {
         Arrays.sort(g);
         Arrays.sort(s);
 
-        Set<Integer> assigned = new HashSet<>();
         int ans = 0;
-        int j = 0;
-        for (int i = 0; i < g.length; i++) {
-            while ((j < s.length && s[j] < g[i]) || assigned.contains(j)) {
-                // 分配sj 给 gi
-                j++;
+        int i = g.length - 1;
+        int j = s.length - 1;
+        while (i >= 0 && j >= 0) {
+            if (s[j] >= g[i]) {
+                j--;
+                ans++;
 
             }
-            if (j == s.length) {
-                break;
-            }
-            assigned.add(j);
-            ans ++;
+            i--;
         }
 
         return ans;
