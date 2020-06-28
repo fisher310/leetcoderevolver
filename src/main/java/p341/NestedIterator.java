@@ -12,7 +12,7 @@ import java.util.List;
  */
 public class NestedIterator implements Iterator<Integer> {
 
-    private List<Integer> list;
+    private final List<Integer> list;
     private int curr = 0;
     public NestedIterator(List<NestedInteger> nestedList) {
         list = new ArrayList<>();
