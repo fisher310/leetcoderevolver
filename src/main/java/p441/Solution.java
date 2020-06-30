@@ -6,21 +6,21 @@ class Solution {
         if (n < 0) return 0;
         if (n <= 1) return n;
 
-        long l = 0;
-        long r = n;
+        int l = 0;
+        int r = n;
 
         while (l < r) {
 
-            long mid = l + (r - l) / 2;
-            long sum = mid * (1 + mid) / 2;
+            int mid = l + (r - l) / 2;
+            long sum = (long) mid * (1 + (long) mid) / 2;
             if (sum == n) {
-                return (int) mid;
+                return mid;
             } else if (sum < n) {
                 l = mid + 1;
             } else {
                 r = mid;
             }
         }
-        return (int) (l - 1);
+        return l - 1;
     }
 }
