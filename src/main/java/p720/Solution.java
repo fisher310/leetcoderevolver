@@ -1,6 +1,5 @@
 package p720;
 
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -9,24 +8,25 @@ class Solution {
 
   public String longestWord(String[] words) {
 
-    Arrays.sort(words);
-
     String ans = "";
 
     Set<String> set = new HashSet<>();
 
+    for (String s : words) {
+      set.add(s);
+    }
+
+    outer:
     for (int i = 0; i < words.length; i++) {
 
       String s = words[i];
-      if (s.length() == 1) {
-        set.add(s);
-        if (ans.length() < s.length()) ans = s;
-      } else {
-        String prefix = s.substring(0, s.length() - 1);
-        if (set.contains(prefix)) {
-          if (ans.length() < s.length()) ans = s;
-          set.add(s);
+      if (s.length() > ans.length() || (s.length() == ans.length() && s.compareTo(ans) < 0)) {
+        for (int j = 1; j < s.length() - 1; j++) {
+          if (!set.contains(s.substring(0, j))) {
+            continue outer;
+          }
         }
+        ans = s;
       }
     }
 

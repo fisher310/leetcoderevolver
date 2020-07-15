@@ -2,27 +2,18 @@ package p1385;
 
 import org.junit.Assert;
 
-import java.util.TreeSet;
-
 class Solution {
     public int findTheDistanceValue(int[] arr1, int[] arr2, int d) {
 
-        TreeSet<Integer> treeSet = new TreeSet<>();
-        for (int n : arr2) {
-            treeSet.add(n);
-        }
-
         int ans = 0;
-        for (int n : arr1) {
-            Integer f = treeSet.floor(n);
-            Integer c = treeSet.ceiling(n);
-            if (f != null && c != null) {
-                if (Math.abs(f - n) > d && Math.abs(c - n) > d) ans++;
-            } else if (f != null) {
-                if (Math.abs(f - n) > d) ans++;
-            } else if (c != null) {
-                if (Math.abs(c - n) > d) ans++;
+        outer:
+        for (int i : arr1) {
+            for (int j : arr2) {
+                if (Math.abs(i - j) <= d) {
+                    continue outer;
+                }
             }
+            ans++;
         }
 
         return ans;

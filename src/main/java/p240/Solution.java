@@ -19,6 +19,13 @@ class Solution {
         return false;
     }
 
+    private boolean find(int[][] matrix, int x1, int y1, int x2, int y2, int target) {
+        if (x1 > x2 || y1 > y2) return false;
+        if (target < matrix[x1][y1] || target > matrix[x2][y2]) return false;
+
+        return false;
+    }
+
     public static void main(String[] args) {
         Solution s = new Solution();
 
