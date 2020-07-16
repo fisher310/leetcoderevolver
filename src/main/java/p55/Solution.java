@@ -11,6 +11,7 @@ class Solution {
 
     boolean dfs(int[] nums, int start, int steps) {
         for (int i = 1; i < steps; i++) {
+            Object obj = new Object();
 
         }
         return false;
