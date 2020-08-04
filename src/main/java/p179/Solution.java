@@ -12,39 +12,9 @@ class Solution {
                         .mapToObj(String::valueOf)
                         .sorted(
                                 ((o1, o2) -> {
-                                    char[] ch1 = o1.toCharArray();
-                                    char[] ch2 = o2.toCharArray();
-                                    int i = 0;
-                                    while (i < ch1.length && i < ch2.length) {
-                                        if (ch1[i] < ch2[i]) {
-                                            return 1;
-                                        } else if (ch1[i] > ch2[i]) {
-                                            return -1;
-                                        } else {
-                                            i++;
-                                        }
-                                    }
-                                    int k = 0;
-                                    while (i < ch1.length - 1) {
-                                        if (ch1[i] == ch1[k]) {
-                                            k++;
-                                            continue;
-                                        } else {
-                                            i++;
-                                        }
-                                        return Character.compare(ch1[k], ch1[i]);
-                                    }
-
-                                    while (i < ch2.length - 1) {
-                                        if (ch2[i] == ch2[k]) {
-                                            k++;
-                                            continue;
-                                        } else {
-                                            i++;
-                                        }
-                                        return Character.compare(ch2[k], ch2[i]);
-                                    }
-                                    return 0;
+                                    String a = o1 + o2;
+                                    String b = o2 + o1;
+                                    return b.compareTo(a);
                                 }))
                         .collect(Collectors.joining());
 
@@ -63,8 +33,8 @@ class Solution {
         Assert.assertEquals(
                 "9609938824824769735703560743981399",
                 s.largestNumber(new int[] {824, 938, 1399, 5607, 6973, 5703, 9609, 4398, 8247}));
-        System.out.println(s.largestNumber(new int[] {0, 0}));
-        System.out.println(s.largestNumber(new int[] {128, 12}));
+        Assert.assertEquals("0", s.largestNumber(new int[] {0, 0}));
+        Assert.assertEquals("12812", s.largestNumber(new int[] {128, 12}));
         System.out.println(s.largestNumber(new int[] {10, 2}));
         System.out.println(s.largestNumber(new int[] {3, 30, 34, 5, 9}));
     }
