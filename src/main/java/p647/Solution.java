@@ -1,5 +1,7 @@
 package p647;
 
+import org.junit.Assert;
+
 /**
  * 给定一个字符串，你的任务是计算这个字符串中有多少个回文子串。
  *
@@ -21,10 +23,46 @@ class Solution {
 
         char[] ch = s.toCharArray();
 
+        int ans = 0;
+        int len = ch.length;
         for (int i = 0; i < ch.length; i++) {
 
-            //todo
+            ans += helperOdd(ch, i, len);
+            ans += helperEven(ch, i, len);
+
         }
-        return 0;
+        return ans;
+    }
+
+    int helperEven(char[] arr, int i, int len) {
+        int count = 0;
+        int l = i, r = i + 1;
+        while (l >= 0 && r < len) {
+            if (arr[l--] == arr[r++])
+                count++;
+            else
+                break;
+        }
+        return count;
+    }
+
+    int helperOdd(char[] arr, int i, int len) {
+        int count = 1;
+        int l = i - 1, r = i + 1;
+        while (l >= 0 && r < len) {
+            if (arr[l--] == arr[r++])
+                count++;
+            else
+                break;
+
+        }
+        return count;
+    }
+
+    public static void main(String[] args) {
+        Solution s = new Solution();
+        Assert.assertEquals(3, s.countSubstrings("abc"));
+        Assert.assertEquals(6, s.countSubstrings("aaa"));
+        Assert.assertEquals(10, s.countSubstrings("aaaa"));
     }
 }
