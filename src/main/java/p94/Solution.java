@@ -11,7 +11,6 @@ class Solution {
         List<Integer> ans = new ArrayList<>();
 
         LinkedList<TreeNode> stack = new LinkedList<>();
-        stack.push(root);
         TreeNode curr = root;
         while (curr != null || !stack.isEmpty()) {
             while (curr != null) {

@@ -11,7 +11,9 @@ class Solution {
         Set<String> wordSet = new HashSet<>(wordList);
         if (!wordSet.contains(endWord)) return Collections.emptyList();
 
-        Map<String, List<String>> map = bfs(beginWord, endWord, wordSet);
+        Map<String, List<String>> map = new HashMap<>();
+        boolean found = bfs(beginWord, endWord, wordSet, map);
+        if (!found) return Collections.emptyList();
 
         List<String> res = new ArrayList<>();
         List<List<String>> ans = new ArrayList<>();
@@ -24,46 +26,74 @@ class Solution {
         return ans;
     }
 
-    private Map<String, List<String>> bfs(String beginWord, String endWord, Set<String> wordSet) {
-        Queue<String> queue = new LinkedList<>();
-        Map<String, List<String>> map = new HashMap<>();
-        queue.offer(beginWord);
-        boolean found = false;
+    private boolean bfs(
+            String beginWord, String endWord, Set<String> wordSet, Map<String, List<String>> map) {
         Set<String> visited = new HashSet<>();
         visited.add(beginWord);
+        visited.add(endWord);
 
-        Set<String> levelSet = new HashSet<>();
+        Set<String> beginSet = new HashSet<>();
+        beginSet.add(beginWord);
+        Set<String> endSet = new HashSet<>();
+        endSet.add(endWord);
 
-        while (!queue.isEmpty()) {
+        boolean forward = true;
+        boolean found = false;
+        while (!beginSet.isEmpty() && !endSet.isEmpty()) {
             min++;
-            int size = queue.size();
-            for (int k = 0; k < size; k++) {
-                String word = queue.poll();
-                List<String> neighbors = new ArrayList<>();
+            if (beginSet.size() > endSet.size()) {
+                Set<String> tmp = beginSet;
+                beginSet = endSet;
+                endSet = tmp;
+
+                forward = !forward;
+            }
+
+            Set<String> nextLevelVisited = new HashSet<>();
+
+            for (String word : beginSet) {
                 char[] ch = word.toCharArray();
                 for (int i = 0; i < ch.length; i++) {
                     char old = ch[i];
                     for (char c = 'a'; c <= 'z'; c++) {
                         if (c == old) continue;
                         ch[i] = c;
-                        String tmp = new String(ch);
-                        if (tmp.equals(endWord)) found = true;
-                        if (wordSet.contains(tmp) && !visited.contains(tmp)) {
-                            neighbors.add(tmp);
-                            queue.offer(tmp);
-                            levelSet.add(tmp);
+                        String nextWord = new String(ch);
+                        if (wordSet.contains(nextWord)) {
+                            if (endSet.contains(nextWord)) {
+                                found = true;
+                                addSuccessor(word, nextWord, forward, map);
+                            }
+
+                            if (!visited.contains(nextWord)) {
+                                nextLevelVisited.add(nextWord);
+                                addSuccessor(word, nextWord, forward, map);
+                            }
                         }
                     }
                     ch[i] = old;
                 }
-                map.put(word, neighbors);
             }
-            if (found) break;
 
-            visited.addAll(levelSet);
-            levelSet.clear();
+            beginSet = nextLevelVisited;
+            visited.addAll(nextLevelVisited);
+
+            if (found) break;
         }
-        return map;
+
+        return found;
+    }
+
+    private void addSuccessor(
+            String word, String nextWord, boolean forward, Map<String, List<String>> map) {
+        if (!forward) {
+            String tmp = word;
+            word = nextWord;
+            nextWord = tmp;
+        }
+
+        map.computeIfAbsent(word, s -> new ArrayList<>());
+        map.get(word).add(nextWord);
     }
 
     private void dfs(

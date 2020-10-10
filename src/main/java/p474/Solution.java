@@ -9,7 +9,7 @@ import org.junit.Assert;
 class Solution {
     public int findMaxForm(String[] strs, int m, int n) {
 
-        int[][][] dp = new int[strs.length + 1][m + 1][n + 1];
+        int[][] dp = new int[m + 1][n + 1];
 
         for (int i = 1; i <= strs.length; i++) {
             String s = strs[i - 1];
@@ -19,18 +19,14 @@ class Solution {
                 if (s.charAt(j) == '0') x0++;
                 else x1++;
             }
-            for (int u = 0; u <= m; u++) {
-                for (int v = 0; v <= n; v++) {
-                    if (u < x0 || v < x1) {
-                        dp[i][u][v] = dp[i - 1][u][v];
-                    } else {
-                        dp[i][u][v] = Math.max(dp[i - 1][u][v], dp[i - 1][u - x0][v - x1] + 1);
-                    }
+            for (int u = m; u >= x0; u--) {
+                for (int v = n; v >= x1; v--) {
+                    dp[u][v] = Math.max(dp[u][v], dp[u - x0][v - x1] + 1);
                 }
             }
         }
 
-        return dp[strs.length][m][n];
+        return dp[m][n];
     }
 
     public static void main(String[] args) {

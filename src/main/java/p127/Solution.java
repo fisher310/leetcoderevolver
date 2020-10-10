@@ -1,91 +1,63 @@
 package p127;
 
-import java.util.*;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 /** 单词接龙 */
 class Solution {
-  public int ladderLength(String beginWord, String endWord, List<String> wordList) {
+    public int ladderLength(String beginWord, String endWord, List<String> wordList) {
+        return bfs(beginWord, endWord, new HashSet<>(wordList));
+    }
 
-    Map<String, List<String>> map = new HashMap<>();
+    private int bfs(String beginWord, String endWord, Set<String> wordList) {
 
-    for (int i = 0; i < wordList.size(); i++) {
-      for (int j = i + 1; j < wordList.size(); j++) {
-        String word1 = wordList.get(i);
-        String word2 = wordList.get(j);
-        if (dis(word1, word2) == 1) {
-          join(map, word1, word2);
-          join(map, word2, word1);
+        if (!wordList.contains(endWord)) return 0;
+
+        Set<String> beginSet = new HashSet<>();
+        beginSet.add(beginWord);
+        Set<String> endSet = new HashSet<>();
+        endSet.add(endWord);
+
+        int len = 0;
+        Set<String> visited = new HashSet<>();
+        while (!beginSet.isEmpty() && !endSet.isEmpty()) {
+            len++;
+
+            if (beginSet.size() > endSet.size()) {
+                Set<String> tmp = beginSet;
+                beginSet = endSet;
+                endSet = tmp;
+            }
+            Set<String> levelVisited = new HashSet<>();
+
+            for (String word : beginSet) {
+                char[] ch = word.toCharArray();
+                for (int i = 0; i < ch.length; i++) {
+                    char old = ch[i];
+                    for (char c = 'a'; c <= 'z'; c++) {
+                        if (c == old) continue;
+                        ch[i] = c;
+                        String nextWord = new String(ch);
+                        if (wordList.contains(nextWord)) {
+                            if (endSet.contains(nextWord)) {
+                                return len + 1;
+                            }
+
+                            if (!visited.contains(nextWord)) {
+                                levelVisited.add(nextWord);
+                            }
+                        }
+                    }
+                    ch[i] = old;
+                }
+            }
+
+            beginSet = levelVisited;
+
+            visited.addAll(levelVisited);
         }
-      }
+
+        return 0;
     }
-
-    boolean flag = map.containsKey(beginWord);
-    if (!flag) {
-      List<String> beginList = new LinkedList<>();
-      for (String w : wordList) {
-        if (dis(beginWord, w) == 1) {
-          beginList.add(w);
-        }
-      }
-      map.put(beginWord, beginList);
-    }
-
-    LinkedList<Node> queue = new LinkedList<>();
-
-    queue.offer(new Node(1, map.get(beginWord)));
-    Set<String> visited = new HashSet<>();
-    visited.add(beginWord);
-
-    while (!queue.isEmpty()) {
-      Node node = queue.poll();
-
-      for (String w : node.list) {
-        if (w.equals(endWord)) {
-          return node.dis + 1;
-        }
-        if (!visited.contains(w)) {
-          List<String> wL = map.get(w);
-          if (null != wL && wL.size() > 0) {
-            queue.offer(new Node(node.dis + 1, wL));
-          }
-          visited.add(w);
-        }
-      }
-    }
-
-    return 0;
-  }
-
-  private void join(Map<String, List<String>> map, String word1, String word2) {
-    if (map.containsKey(word1)) {
-      List<String> w1l = map.get(word1);
-      w1l.add(word2);
-    } else {
-      List<String> w1l = new LinkedList<>();
-      w1l.add(word2);
-      map.put(word1, w1l);
-    }
-  }
-
-  private int dis(String a, String b) {
-    int i = 0;
-    int j = 0;
-    int ans = 0;
-    while (i < a.length() && j < b.length()) {
-      if (a.charAt(i++) != b.charAt(j++)) {
-        ans++;
-      }
-    }
-    return ans;
-  }
-
-  private static class Node {
-    int dis;
-    List<String> list;
-
-    Node(int dis, List<String> list) {
-      this.dis = dis;
-      this.list = list;
-    }
-  }
 }
