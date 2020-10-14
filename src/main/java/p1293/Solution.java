@@ -37,7 +37,7 @@ class Solution {
                             if (x == row - 1 && y == col - 1) return step;
                             queue.offer(new Node(x, y, point.rest));
                             visited[x][y][point.rest] = true;
-                        } else if (grid[x][y] == 1 && point.rest > 0 && !visited[x][y][point.rest]) {
+                        } else if (grid[x][y] == 1 && point.rest > 0 && !visited[x][y][point.rest-1]) {
                             queue.offer(new Node(x, y, point.rest - 1));
                             visited[x][y][point.rest - 1] = true;
                         }

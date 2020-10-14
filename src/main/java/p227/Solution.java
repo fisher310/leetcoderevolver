@@ -6,37 +6,34 @@ import java.util.LinkedList;
 
 class Solution {
     public int calculate(String s) {
-        LinkedList<Integer> nums = new LinkedList<>();
-        LinkedList<Character> operators = new LinkedList<>();
-
-        int start = 0;
+        LinkedList<Integer> stack = new LinkedList<>();
+        char sign = '+';
+        int d = 0;
         for (int i = 0; i < s.length(); i++) {
-            char c = s.charAt(i);
-            if (c == ' ') continue;
-            if (c == '*' || c == '/' || c == '+' || c == '-') {
-                int n1 = Integer.parseInt(s.substring(start, i).trim());
-                start = i + 1;
-                process(nums, operators, n1);
-                operators.push(c);
+            char ch = s.charAt(i);
+            if (ch >= '0') {
+                d = d * 10 + ch - '0';
+            }
+            if (i == s.length() - 1 || (ch < '0' && ch != ' ')) {
+                if (sign == '+') {
+                    stack.push(d);
+                } else if (sign == '-') {
+                    stack.push(-d);
+                } else {
+                    int tmp = (sign == '*') ? stack.pop() * d : stack.pop() / d;
+                    stack.push(tmp);
+                }
+                d = 0;
+                sign = ch;
             }
         }
 
-        int n = Integer.parseInt(s.substring(start, s.length()).trim());
-        process(nums, operators, n);
-        while (!operators.isEmpty()) {
-            char c = operators.pollLast();
-            int n1 = nums.pollLast();
-            int n2 = nums.pollLast();
-            switch (c) {
-                case '+':
-                    nums.offerLast(n1 + n2);
-                    break;
-                case '-':
-                    nums.offerLast(n1 - n2);
-                    break;
-            }
+        int rs = 0;
+        while (!stack.isEmpty()) {
+            rs += stack.pop();
         }
-        return nums.pop();
+
+        return rs;
     }
 
     private void process(LinkedList<Integer> nums, LinkedList<Character> operators, int n) {
