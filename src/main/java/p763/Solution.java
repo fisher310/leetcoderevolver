@@ -1,6 +1,7 @@
 package p763;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 // ababcbaca  defegde hijhklij
 // 012345678  9012345 67890123
@@ -19,30 +20,20 @@ import java.util.*;
 class Solution {
 
     public List<Integer> partitionLabels(String S) {
-        int N = S.length();
-        Map<Character, int[]> map = new HashMap<>();
+        int[] last = new int[26];
         for (int i = 0; i < S.length(); i++) {
-            char c = S.charAt(i);
-            map.computeIfAbsent(c, e -> new int[] {N, 0});
-            map.get(c)[0] = Math.min(i, map.get(c)[0]);
-            map.get(c)[1] = Math.max(i, map.get(c)[1]);
+            last[S.charAt(i) - 'a'] = i;
         }
-        int[][] res = map.values().toArray(new int[0][0]);
-        Arrays.sort(res, Comparator.comparingInt(o -> o[0]));
 
+        int start = 0, end = 0;
         List<Integer> ans = new ArrayList<>();
-        int start = 0;
-        int end = 0;
-        for (int[] arr : res) {
-            if (arr[0] <= end) {
-                end = Math.max(end, arr[1]);
-            } else {
+        for (int i = 0; i < S.length(); i++) {
+            end = Math.max(end, last[S.charAt(i) - 'a']);
+            if (i == end) {
                 ans.add(end - start + 1);
-                start = arr[0];
-                end = arr[1];
+                start = end + 1;
             }
         }
-        ans.add(end - start + 1);
 
         return ans;
     }
