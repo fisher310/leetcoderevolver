@@ -15,7 +15,8 @@ class Solution {
 
         for (int i = 0; i < R; i++) {
             for (int j = 0; j < C; j++) {
-                res[i * C + j] = new int[]{i, j};
+                res[i * C + j][0] = i;
+                res[i * C + j][1] = j;
             }
         }
 
