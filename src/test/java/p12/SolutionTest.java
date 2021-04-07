@@ -1,12 +1,14 @@
 package p12;
 
 import org.junit.Test;
+import org.openjdk.jmh.annotations.Benchmark;
 
 import static org.junit.Assert.assertEquals;
 
 public class SolutionTest {
 
     @Test
+    @Benchmark
     public void intToRoman() {
         Solution solution = new Solution();
 

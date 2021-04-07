@@ -12,37 +12,38 @@ public class MergeSort {
     private void mergeSort(int[] arr, int l, int r) {
         if (l >= r) return;
 
-        int mid = (l + r) >> 1;
+        int m = l + (r - l) / 2;
 
-        mergeSort(arr, l, mid);
-        mergeSort(arr, mid + 1, r);
-        merge(arr, l, mid, mid + 1, r);
+        mergeSort(arr, l, m);
+        mergeSort(arr, m + 1, r);
+        merge(arr, l, m, m + 1, r);
     }
 
-    private void merge(int[] arr, int l1, int r1, int l2, int r2) {
-        int[] temp = new int[r2 - l1 + 1];
-        int index = 0;
-        int start = l1;
-        while (l1 <= r1 && l2 <= r2) {
-            if (arr[l1] <= arr[l2]) {
-                temp[index++] = arr[l1++];
+    private void merge(int[] arr, int l, int m, int n, int r) {
+        int[] buf = new int[r - l + 1];
+
+        int i = l, j = n, k = 0;
+        while (i <= m && j <= r) {
+            if (arr[i] <= arr[j]) {
+                buf[k++] = arr[i++];
             } else {
-                temp[index++] = arr[l2++];
+                buf[k++] = arr[j++];
             }
         }
 
-        while (l1 <= r1) {
-            temp[index++] = arr[l1++];
+        while (i <= m) {
+            buf[k++] = arr[i++];
         }
-        while (l2 <= r2) {
-            temp[index++] = arr[l2++];
+        while (j <= r) {
+            buf[k++] = arr[j++];
         }
 
-        System.arraycopy(temp, 0, arr, start, temp.length);
+        System.arraycopy(buf, 0, arr, l, buf.length);
     }
+
 
     public static void main(String[] args) {
         MergeSort sort = new MergeSort();
-        sort.sort(new int[] {3, 4, 2, 5, 9, 9, 2, 7});
+        sort.sort(new int[]{3, 4, 2, 5, 9, 9, 2, 7});
     }
 }

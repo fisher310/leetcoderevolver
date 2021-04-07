@@ -1,6 +1,7 @@
 package p1030;
 
 import org.junit.Test;
+import org.openjdk.jmh.annotations.Benchmark;
 
 import java.util.Arrays;
 
@@ -12,7 +13,8 @@ import static org.junit.Assert.*;
  */
 public class SolutionTest {
 
-    @Test
+//    @Test
+//    @Benchmark
     public void allCellsDistOrder() {
         Solution s = new Solution();
 

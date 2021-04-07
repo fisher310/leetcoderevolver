@@ -1,5 +1,7 @@
 package p1;
 
+import org.openjdk.jmh.annotations.Benchmark;
+
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
@@ -16,24 +18,30 @@ import java.util.Map;
  * <p>因为 nums[0] + nums[1] = 2 + 7 = 9 所以返回 [0, 1]
  */
 class Solution {
-  public int[] twoSum(int[] nums, int target) {
-    Map<Integer, Integer> map = new HashMap<>(nums.length);
 
-    for (int i = 0; i < nums.length; i++) {
-      int another = target - nums[i];
-      Integer anotherIndex = map.get(another);
-      if (null != anotherIndex) {
-        return new int[]{anotherIndex, i};
-      }
-      map.put(nums[i], i);
+    @Benchmark
+    public void measureName() {
+
     }
-    return null;
-  }
 
-  public static void main(String[] args) {
-    int[] A = new int[] {3, 2, 4};
-    int target = 6;
-    int[] result = new Solution().twoSum(A, target);
-    System.out.println(Arrays.toString(result));
-  }
+    public int[] twoSum(int[] nums, int target) {
+        Map<Integer, Integer> map = new HashMap<>(nums.length);
+
+        for (int i = 0; i < nums.length; i++) {
+            int another = target - nums[i];
+            Integer anotherIndex = map.get(another);
+            if (null != anotherIndex) {
+                return new int[]{anotherIndex, i};
+            }
+            map.put(nums[i], i);
+        }
+        return null;
+    }
+
+    public static void main(String[] args) {
+        int[] A = new int[]{3, 2, 4};
+        int target = 6;
+        int[] result = new Solution().twoSum(A, target);
+        System.out.println(Arrays.toString(result));
+    }
 }

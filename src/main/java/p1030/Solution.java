@@ -1,5 +1,7 @@
 package p1030;
 
+import org.openjdk.jmh.annotations.Benchmark;
+
 import java.util.Arrays;
 import java.util.Comparator;
 
@@ -9,6 +11,8 @@ import java.util.Comparator;
  */
 class Solution {
 
+
+    @Benchmark
     public int[][] allCellsDistOrder(int R, int C, int r0, int c0) {
 
         int[][] res = new int[R * C][2];
