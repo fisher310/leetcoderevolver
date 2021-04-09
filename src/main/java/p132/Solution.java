@@ -5,22 +5,16 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
+ * aab -> 1   a -> 0   ab -> 1
+ *
  * @author lihailong
  * @since 2021/04/09 14:34:24
  */
 class Solution {
 
-    private boolean[][] f;
-    private List<String> res;
-
-    private int ans;
-    private int n;
-
     public int minCut(String s) {
-        res = new ArrayList<>();
-        n = s.length();
-        ans = n;
-        f = new boolean[n][n];
+        int n = s.length();
+        boolean[][] f = new boolean[n][n];
 
         for (int i = 0; i < n; i++) {
             Arrays.fill(f[i], true);
@@ -32,22 +26,21 @@ class Solution {
             }
         }
 
-        dfs(s, 0);
-        return ans;
-    }
-
-    private void dfs(String s, int i) {
-        if (i == n) {
-            ans = Math.min(ans, res.size() - 1);
-            return;
-        }
-
-        for (int j = i; j < n; j++) {
-            if (f[i][j]) {
-                res.add(s.substring(i, j + 1));
-                dfs(s, j + 1);
-                res.remove(res.size() - 1);
+        int[] g = new int[n];
+        Arrays.fill(g, Integer.MAX_VALUE);
+        for (int i = 0; i < n; i++) {
+            if (f[0][i]) {
+                g[i] = 0;
+            } else {
+                for (int j = 0; j < i; j++) {
+                    if (f[j + 1][i]) {
+                        g[i] = Math.min(g[i], g[j] + 1);
+                    }
+                }
             }
         }
+
+        return g[n - 1];
     }
+
 }

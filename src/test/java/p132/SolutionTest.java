@@ -16,5 +16,6 @@ public class SolutionTest {
         assertEquals(1, s.minCut("aab"));
         assertEquals(0, s.minCut("aaa"));
         assertEquals(1, s.minCut("ab"));
+        assertEquals(0, s.minCut("ababababababababababababcbabababababababababababa"));
     }
 }
