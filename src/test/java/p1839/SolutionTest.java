@@ -14,6 +14,7 @@ public class SolutionTest {
     public void longestBeautifulSubstring() {
 
         Solution s = new Solution();
+        assertEquals(5, s.longestBeautifulSubstring("aeeeiiiioooauuuaeiou"));
         assertEquals(13, s.longestBeautifulSubstring("aeiaaioaaaaeiiiiouuuooaauuaeiu"));
     }
 }
