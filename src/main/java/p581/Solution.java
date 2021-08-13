@@ -3,12 +3,7 @@ package p581;
 import static org.junit.Assert.assertEquals;
 
 import java.util.Arrays;
-import java.util.LinkedHashMap;
-import java.util.LinkedList;
 
-import org.junit.*;
-
-import jdk.nashorn.api.tree.WhileLoopTree;
 
 /**
  * 
