@@ -1,47 +1,44 @@
 package m17dot05;
 
-import static org.junit.Assert.assertArrayEquals;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
+import static org.junit.Assert.assertArrayEquals;
 
 class Solution {
 
     public String[] findLongestSubarray(String[] array) {
         int n = array.length;
-
-        int l = 0, r = 0, max = 0;
+        Map<Integer, Integer> map = new HashMap<>();
+        map.put(0, -1);
+        int sum = 0;
+        int l = 0, r = 0;
         for (int i = 0; i < n; i++) {
-            int c = 0, m = 0;
-            for (int j = i; j < n; j++) {
-                // i->j max j when count(char) == count(num)
-                if (Character.isDigit(array[j].charAt(0))) {
-                    m++;
-                } else {
-                    c++;
+            boolean isDigit = Character.isDigit(array[i].charAt(0));
+            sum += (isDigit ? 1 : -1);
+            if (map.containsKey(sum)) {
+                if ((i - map.get(sum)) > (r - l)) {
+                    l = map.get(sum) + 1;
+                    r = i + 1;
                 }
-                if (m == c && m > max) {
-                    l = i;
-                    r = j;
-                    max = m;
-                }
+            } else {
+                map.put(sum, i);
             }
-
         }
 
-        if (l == r) {
-            return new String[0];
-        }
-        String[] ans = new String[r - l + 1];
-        System.arraycopy(array, l, ans, 0, r - l + 1);
-
-        return ans;
+        return Arrays.copyOfRange(array, l, r);
     }
 
     public static void main(String[] args) {
         Solution s = new Solution();
-        assertArrayEquals(new String[]{"A", "1"}, s.findLongestSubarray(new String[] { "A", "A", "1" }));
+        assertArrayEquals(
+                new String[] {"A", "1"}, s.findLongestSubarray(new String[] {"A", "A", "1"}));
 
-        assertArrayEquals(new String[] { "A", "A", "B", "1", "2", "A", "1", "5" },
-                s.findLongestSubarray(new String[] { "X", "A", "A", "B", "1", "2", "A", "1", "5", "X", "X" }));
-        assertArrayEquals(new String[] {}, s.findLongestSubarray(new String[] { "A", "A" }));
+        assertArrayEquals(
+                new String[] {"A", "A", "B", "1", "2", "A", "1", "5"},
+                s.findLongestSubarray(
+                        new String[] {"X", "A", "A", "B", "1", "2", "A", "1", "5", "X", "X"}));
+        assertArrayEquals(new String[] {}, s.findLongestSubarray(new String[] {"A", "A"}));
     }
 }
