@@ -1,5 +1,6 @@
 package p31;
 
+import org.junit.Assert;
 import org.junit.Test;
 
 import java.util.Arrays;
@@ -15,5 +16,6 @@ public class SolutionTest {
         input = new int[]{3, 2, 1};
         s.nextPermutation(input);
         System.out.println(Arrays.toString(input));
+		Assert.assertNotNull(input);
     }
 }

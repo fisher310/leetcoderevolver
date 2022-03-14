@@ -12,7 +12,8 @@ class Solution {
       return Collections.emptyList();
     }
 
-    Set<String> and = new HashSet<>();
+    boolean[][] matrix = new boolean[n + 1][n + 1];
+    List<String> ans = new ArrayList<>();
     for (int i = 1; i < n; i++) {
       for (int j = i + 1; j <= n; j++) {
         int a = i, b = j;
@@ -21,11 +22,14 @@ class Solution {
           a /= g;
           b /= g;
         }
-        and.add(a + "/" + b);
+        if (!matrix[a][b]) {
+          ans.add(a + "/" + b);
+          matrix[a][b] = true;
+        }
       }
     }
 
-    return new ArrayList<>(and);
+    return ans;
   }
 
   int gcd(int m, int n) {
@@ -53,5 +57,6 @@ class Solution {
     ans = s.simplifiedFractions(2);
     System.out.println(ans);
     System.out.println(s.simplifiedFractions(100));
+
   }
 }
