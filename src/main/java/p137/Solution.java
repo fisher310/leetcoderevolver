@@ -13,7 +13,7 @@ public class Solution {
     }
 
     for (Map.Entry<Integer, Integer> e : map.entrySet()) {
-      if (e.getValue() == 1) {
+      if (e.getValue() == 3) {
         return e.getKey();
       }
     }
