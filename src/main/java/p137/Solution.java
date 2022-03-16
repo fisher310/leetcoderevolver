@@ -23,6 +23,6 @@ public class Solution {
 
   public static void main(String[] args) {
     Solution s = new Solution();
-    Assert.assertEquals(3, s.singleNumber(new int[] {2, 2, 3, 2}));
+    Assert.assertEquals("test01", 3, s.singleNumber(new int[] {2, 2, 3, 2}));
   }
 }
