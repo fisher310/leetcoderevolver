@@ -18,12 +18,9 @@ public class Solution {
       arr[r] = tmp == 1 ? 0 : 1;
     }
     if (l == r) {
-        arr[l] = arr[l] == 1 ? 0 : 1;
+      arr[l] = arr[l] == 1 ? 0 : 1;
     }
   }
 
-  public static void main(String[] args) {
-       
-    
-  }
+  public static void main(String[] args) {}
 }
