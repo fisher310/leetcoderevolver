@@ -9,7 +9,7 @@ vim.o.termguicolors = true
 vim.o.cursorline = true
 vim.o.fileencoding='utf-8'
 vim.o.background='dark'
-vim.opt.guifont = {'UbuntuMono Nerd Font', 'h16'}
+-- vim.opt.guifont = {'UbuntuMono Nerd Font', 'h19'}
 
 
 -- vim.g.vscode_transparent = 1
@@ -52,7 +52,7 @@ local options = {
   wrap = false,                            -- display lines as one long line
   scrolloff = 8,                           -- is one of my fav
   sidescrolloff = 8,
-  -- guifont = "monospace:h17",               -- the font used in graphical neovim applications
+--  guifont = "'UbuntuMono Nerd Font':h17",               -- the font used in graphical neovim applications
 }
 
 vim.opt.shortmess:append "c"
@@ -64,3 +64,20 @@ end
 vim.cmd "set whichwrap+=<,>,[,],h,l"
 vim.cmd [[set iskeyword+=-]]
 vim.cmd [[set formatoptions-=cro]] -- TODO: this doesn't seem to work
+vim.cmd [[set undodir=~/.vim/undodir]]
+vim.cmd([[
+
+if exists("g:neovide")
+
+  " g:neovide_transparency should be 0 if you want to unify transparency of content and title bar.
+  let g:neovide_transparency=0.0
+  let g:transparency = 0.9 
+  let g:neovide_background_color = '#0f1117'.printf('%x', float2nr(255 * g:transparency))
+  " remember previous window size
+  let g:neovide_remember_window_size = v:true
+  let g:neovide_cursor_animation_length=0
+  let g:neovide_cursor_trail_length=0
+  let g:neovide_cursor_vfx_mode = ""
+
+endif
+]])

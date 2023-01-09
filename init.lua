@@ -1,6 +1,5 @@
 
 require('options')
-require('keymaps')
 require('init-packer')
 require('init-cmp')
 require('init-lsp')
@@ -17,16 +16,19 @@ require('init-project')
 require('init-impatient')
 require('init-indentline')
 require('init-alpha')
-require('lsp')
+-- require('lsp')
 require('init-dap')
 require('init-dapui')
 require('nvim-lightbulb').setup({autocmd = {enabled = true}})
 require('init-marks')
+require('keymaps')
 
 vim.cmd([[
 set encoding=UTF-8
 set cc=80
-colorscheme vscode
+colorscheme abscs
+" 这里设置的字体和大小
+set guifont=UbuntuMono\ Nerd\ Font:h16
 
 
 ]])

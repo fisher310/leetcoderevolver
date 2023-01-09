@@ -106,6 +106,8 @@ return require('packer').startup(function()
 
   -- Packer:
   use 'Mofiqul/vscode.nvim'
+  use 'Abstract-IDE/Abstract-cs'
+
 
 
   use "windwp/nvim-autopairs" -- Autopairs, integrates with both cmp and treesitter
