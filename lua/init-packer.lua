@@ -1,152 +1,165 @@
 -- This file can be loaded by calling `lua require('plugins')` from your init.vim
 
-return require('packer').startup(function()
-  -- Packer can manage itself
-  use 'wbthomason/packer.nvim'
+return require("packer").startup(function()
+	-- Packer can manage itself
+	use("wbthomason/packer.nvim")
 
-  -- colorscheme
-  use 'NTBBloodbath/doom-one.nvim'
-  use 'sainnhe/sonokai'
-
-  use 'karb94/neoscroll.nvim'
-
-  -- lsp
-  use 
-    {
-        "williamboman/nvim-lsp-installer",
-        config = function ()
-            require("nvim-lsp-installer").setup {}
-        end
-    }
-  use {
-        "neovim/nvim-lspconfig",
-        config = function()
-            local lspconfig = require("lspconfig")
-            lspconfig.sumneko_lua.setup {}
-            --- ...
-        end
-    }
-  use "jose-elias-alvarez/null-ls.nvim" -- for formatters and linters
-
-  use 'hrsh7th/nvim-cmp' -- Autocompletion plugin
-  use 'hrsh7th/cmp-nvim-lsp' -- LSP source for nvim-cmp
-  use 'hrsh7th/cmp-buffer'
-  use 'hrsh7th/cmp-path'
-  use 'hrsh7th/cmp-cmdline'
-  use 'saadparwaiz1/cmp_luasnip' -- Snippets source for nvim-cmp
-  use 'L3MON4D3/LuaSnip' -- Snippets plugin
-
-  -- For vsnip users.
-  use 'hrsh7th/cmp-vsnip'
-  use 'hrsh7th/vim-vsnip'
+	-- colorscheme
+	use("NTBBloodbath/doom-one.nvim")
+	use("sainnhe/sonokai")
+	use("artanikin/vim-synthwave84")
+	use("ellisonleao/gruvbox.nvim")
+    	use("Mofiqul/vscode.nvim")
+	use("Abstract-IDE/Abstract-cs")
 
 
-  -- comment plugin
-  use {
-    'numToStr/Comment.nvim',
-    config = function()
-        require('Comment').setup()
-    end
-  }
+	use("karb94/neoscroll.nvim")
 
-  -- use {
-  --     'kyazdani42/nvim-web-devicons',
-  --     config = function()
-  --         require('nvim-web-devicons').setup()
-  --     end
-  -- }
+	-- lsp
+	use({
+		"williamboman/nvim-lsp-installer",
+		config = function()
+			require("nvim-lsp-installer").setup({})
+		end,
+	})
+	use({
+		"neovim/nvim-lspconfig",
+		config = function()
+			local lspconfig = require("lspconfig")
+			lspconfig.sumneko_lua.setup({})
+			--- ...
+		end,
+	})
+	use("jose-elias-alvarez/null-ls.nvim") -- for formatters and linters
 
-  -- explorer
-  use {
-    'kyazdani42/nvim-tree.lua',
-    requires = {
-      'kyazdani42/nvim-web-devicons', -- optional, for file icons
-    },
-    tag = 'nightly' -- optional, updated every week. (see issue #1193)
-  }
+	use("hrsh7th/nvim-cmp") -- Autocompletion plugin
+	use("hrsh7th/cmp-nvim-lsp") -- LSP source for nvim-cmp
+	use("hrsh7th/cmp-buffer")
+	use("hrsh7th/cmp-path")
+	use("hrsh7th/cmp-cmdline")
+	use("saadparwaiz1/cmp_luasnip") -- Snippets source for nvim-cmp
+	use("L3MON4D3/LuaSnip") -- Snippets plugin
 
-  -- using packer.nvim
-  use {'akinsho/bufferline.nvim', tag = "v2.*", requires = 'kyazdani42/nvim-web-devicons',
-    config = function()
-        require('bufferline').setup{}
-    end
-  }
+	-- For vsnip users.
+	use("hrsh7th/cmp-vsnip")
+	use("hrsh7th/vim-vsnip")
 
-  -- status line
-  use {'windwp/windline.nvim',
-    config = function()
-        require('wlsample.bubble')
-    end
-  }
+	-- comment plugin
+	use({
+		"numToStr/Comment.nvim",
+		config = function()
+			require("Comment").setup()
+		end,
+	})
 
-  -- Lua
-  use {
-    "folke/which-key.nvim",
-    config = function()
-      require("which-key").setup {
-        -- your configuration comes here
-        -- or leave it empty to use the default settings
-        -- refer to the configuration section below
-      }
-    end
-  }
+	-- use {
+	--     'kyazdani42/nvim-web-devicons',
+	--     config = function()
+	--         require('nvim-web-devicons').setup()
+	--     end
+	-- }
 
-  use {
-    'nvim-telescope/telescope.nvim',
-    requires = { {'nvim-lua/plenary.nvim'} }
-  }
+	-- explorer
+	use({
+		"kyazdani42/nvim-tree.lua",
+		requires = {
+			"kyazdani42/nvim-web-devicons", -- optional, for file icons
+		},
+		tag = "nightly", -- optional, updated every week. (see issue #1193)
+	})
 
-  use {
-    'nvim-treesitter/nvim-treesitter', run = ':TSUpdate'
-  }
+	-- using packer.nvim
+	use({
+		"akinsho/bufferline.nvim",
+		tag = "v2.*",
+		requires = "kyazdani42/nvim-web-devicons",
+		config = function()
+			require("bufferline").setup({})
+		end,
+	})
 
-  use { 'tami5/lspsaga.nvim', branch = 'nvim6.0' } -- for specific version
+	-- status line
+	use({
+		"windwp/windline.nvim",
+		config = function()
+			require("wlsample.bubble")
+		end,
+	})
 
-  use { 'mhartington/formatter.nvim' }
+	-- Lua
+	use({
+		"folke/which-key.nvim",
+		config = function()
+			require("which-key").setup({
+				-- your configuration comes here
+				-- or leave it empty to use the default settings
+				-- refer to the configuration section below
+			})
+		end,
+	})
 
-  -- Packer:
-  use 'Mofiqul/vscode.nvim'
-  use 'Abstract-IDE/Abstract-cs'
+    use {'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
+    use {'nvim-telescope/telescope-dap.nvim'}
 
+	use({
+		"nvim-telescope/telescope.nvim",
+		requires = {
+			{ "nvim-lua/plenary.nvim" },
+		},
+	})
 
+	use({
+		"nvim-treesitter/nvim-treesitter",
+		run = ":TSUpdate",
+	})
 
-  use "windwp/nvim-autopairs" -- Autopairs, integrates with both cmp and treesitter
+	use({ "glepnir/lspsaga.nvim", branch = "main" }) -- for specific version
 
-  use "lewis6991/gitsigns.nvim"
-  --
-  use {
-    'tanvirtin/vgit.nvim',
-    requires = {
-    'nvim-lua/plenary.nvim'
-    }
-  }
+	use({ "mhartington/formatter.nvim" })
 
+	-- Packer:
 
-  use "akinsho/toggleterm.nvim"
+	use("windwp/nvim-autopairs") -- Autopairs, integrates with both cmp and treesitter
 
-  use "ahmedkhalf/project.nvim"
+	use("lewis6991/gitsigns.nvim")
+	--
+	use({
+		"tanvirtin/vgit.nvim",
+		requires = {
+			"nvim-lua/plenary.nvim",
+		},
+	})
 
-  use 'lewis6991/impatient.nvim'
+	use("akinsho/toggleterm.nvim")
 
-  use "lukas-reineke/indent-blankline.nvim"
+	use("ahmedkhalf/project.nvim")
 
-  use 'goolord/alpha-nvim'
+	use("lewis6991/impatient.nvim")
 
-  -- debug
-  use 'mfussenegger/nvim-dap'
-  use { "rcarriga/nvim-dap-ui", requires = {"mfussenegger/nvim-dap"} }
+	use("lukas-reineke/indent-blankline.nvim")
 
-  use { 'weilbith/nvim-code-action-menu', cmd = 'CodeActionMenu', }
+	use("goolord/alpha-nvim")
 
-  use {
-    'kosayoda/nvim-lightbulb',
-    requires = 'antoinemadec/FixCursorHold.nvim',
-  }
+	-- debug
+	use("mfussenegger/nvim-dap")
+	use({ "rcarriga/nvim-dap-ui", requires = { "mfussenegger/nvim-dap" } })
 
-  use {
-    'simrat39/rust-tools.nvim'
-  }
+	use({ "weilbith/nvim-code-action-menu", cmd = "CodeActionMenu" })
 
-  use 'chentoast/marks.nvim'
-  -- require("packer").sync()
+	use({
+		"kosayoda/nvim-lightbulb",
+		requires = "antoinemadec/FixCursorHold.nvim",
+	})
+
+	use({
+		"simrat39/rust-tools.nvim",
+	})
+
+	use("chentoast/marks.nvim")
+
+	use("easymotion/vim-easymotion")
+
+    -- golang
+    use 'leoluz/nvim-dap-go'
+	-- require("packer").sync()
 end)
