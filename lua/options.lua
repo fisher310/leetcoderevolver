@@ -18,6 +18,14 @@ vim.g.vscode_italic_comment = 1
 -- Disable nvim-tree background color
 vim.g.vscode_disable_nvimtree_bg = true
 -- vim.cmd('colorscheme sonokai')
+--
+
+
+-- Treesitter folding 
+vim.wo.foldmethod = 'expr'
+vim.wo.foldexpr = 'nvim_treesitter#foldexpr()'
+
+
 local options = {
   backup = false,                          -- creates a backup file
   clipboard = "unnamedplus",               -- allows neovim to access the system clipboard
@@ -66,6 +74,8 @@ vim.cmd [[set iskeyword+=-]]
 vim.cmd [[set formatoptions-=cro]] -- TODO: this doesn't seem to work
 vim.cmd [[set undodir=~/.vim/undodir]]
 vim.cmd([[
+
+let g:rustfmt_autosave = 1
 
 if exists("g:neovide")
 

@@ -161,5 +161,8 @@ return require("packer").startup(function()
 
     -- golang
     use 'leoluz/nvim-dap-go'
+
+    -- rust
+    use 'rust-lang/rust.vim'
 	-- require("packer").sync()
 end)
