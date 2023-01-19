@@ -30,4 +30,5 @@ else
 	require("nvim-lightbulb").setup({ autocmd = { enabled = true } })
 	require("init-marks")
     require("init-rust-tools")
+    require("init-lazygit")
 end

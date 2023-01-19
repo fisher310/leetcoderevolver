@@ -53,7 +53,7 @@ keymap("n", "K", "<cmd>Lspsaga hover_doc<CR>", { silent = true })
 -- keymap("n", "<A-d>", "<cmd>Lspsaga open_floaterm<CR>", { silent = true })
 -- if you want to pass some cli command into a terminal you can do it like this
 -- open lazygit in lspsaga float terminal
--- keymap("n", "<leader>gg", "<cmd>Lspsaga open_floaterm lazygit<CR>", { silent = true })
+keymap("n", "<leader>gg", "<cmd>Lspsaga open_floaterm lazygit<CR>", { silent = true })
 -- close floaterm
 -- keymap("t", "<leader>gt", [[<C-\><C-n><cmd>Lspsaga close_floaterm<CR>]], { silent = true })
 
