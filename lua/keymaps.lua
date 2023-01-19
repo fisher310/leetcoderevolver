@@ -24,6 +24,7 @@ vim.keymap.set('v', 'H', '^', opts)
 vim.keymap.set('n', '<C-a>', 'gg<S-v>G', opts)
 -- vim.keymap.set('n', '<leader>s', '<Plug>(easymotion-bd-f)')
 vim.keymap.set('n', '<leader>s', '<Plug>(easymotion-sn)')
+vim.keymap.set('n', '<leader>gg', ':LazyGit<CR>', opts)
 vim.keymap.set('i', 'jk', '<ESC>', opts)
 
 
