@@ -22,8 +22,8 @@ vim.g.vscode_disable_nvimtree_bg = true
 
 
 -- Treesitter folding 
-vim.wo.foldmethod = 'expr'
-vim.wo.foldexpr = 'nvim_treesitter#foldexpr()'
+-- vim.wo.foldmethod = 'expr'
+-- vim.wo.foldexpr = 'nvim_treesitter#foldexpr()'
 
 
 local options = {
@@ -73,21 +73,3 @@ vim.cmd "set whichwrap+=<,>,[,],h,l"
 vim.cmd [[set iskeyword+=-]]
 vim.cmd [[set formatoptions-=cro]] -- TODO: this doesn't seem to work
 vim.cmd [[set undodir=~/.vim/undodir]]
-vim.cmd([[
-
-let g:rustfmt_autosave = 1
-
-if exists("g:neovide")
-
-  " g:neovide_transparency should be 0 if you want to unify transparency of content and title bar.
-  let g:neovide_transparency=0.0
-  let g:transparency = 0.9 
-  let g:neovide_background_color = '#0f1117'.printf('%x', float2nr(255 * g:transparency))
-  " remember previous window size
-  let g:neovide_remember_window_size = v:true
-  let g:neovide_cursor_animation_length=0
-  let g:neovide_cursor_trail_length=0
-  let g:neovide_cursor_vfx_mode = ""
-
-endif
-]])

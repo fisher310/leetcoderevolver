@@ -9,7 +9,7 @@ return require("packer").startup(function()
 	use("sainnhe/sonokai")
 	use("artanikin/vim-synthwave84")
 	use("ellisonleao/gruvbox.nvim")
-    	use("Mofiqul/vscode.nvim")
+    use("Mofiqul/vscode.nvim")
 	use("Abstract-IDE/Abstract-cs")
 
 
@@ -82,7 +82,7 @@ return require("packer").startup(function()
 	use({
 		"windwp/windline.nvim",
 		config = function()
-			require("wlsample.bubble")
+			require("wlsample.airline")
 		end,
 	})
 
@@ -129,6 +129,8 @@ return require("packer").startup(function()
 			"nvim-lua/plenary.nvim",
 		},
 	})
+
+    use('kdheepak/lazygit.nvim')
 
 	use("akinsho/toggleterm.nvim")
 

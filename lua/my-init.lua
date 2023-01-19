@@ -1,6 +1,9 @@
 if vim.g.vscode then
 	-- VSCode extension
-    -- Plug 'asvetliakov/vim-easymotion'
+	-- Plug 'asvetliakov/vim-easymotion'
+	local keymap = vim.api.nvim_set_keymap
+	vim.g.mapleader = " "
+	vim.g.maplocalleader = " "
 
 else
 	require("keymaps")
@@ -26,19 +29,5 @@ else
 	require("init-dapui")
 	require("nvim-lightbulb").setup({ autocmd = { enabled = true } })
 	require("init-marks")
-
-	vim.cmd([[
-        set encoding=UTF-8
-        set cc=80
-        " colorscheme abscs
-        " colorscheme synthwave84
-        colorscheme gruvbox
-        " 这里设置的字体和大小
-        set guifont=Apercu:h14
-
-	" augroup jdtls_lsp
-	"     autocmd!
-	"     autocmd FileType java lua require'jdtls_setup'.setup()
-	" augroup end
-    ]])
+    require("init-rust-tools")
 end
