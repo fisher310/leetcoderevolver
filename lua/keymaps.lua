@@ -1,53 +1,84 @@
 local opts = { noremap = true, silent = true }
 -- Shorten function name
-local keymap = vim.api.nvim_set_keymap
+-- local keymap = vim.api.nvim_set_keymap
+local keymap = vim.keymap.set
 
 --Remap space as leader key
 keymap("", "<Space>", "<Nop>", opts)
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
-vim.keymap.set('n', '<leader>ft', ':NvimTreeToggle<CR>')
-vim.keymap.set('n', '<leader>fc', ':NvimTreeFindFile<CR>')
-vim.keymap.set('n', '<leader>fr', ':NvimTreeRefresh<CR>')
-vim.keymap.set('n', '<leader>ff', ':Telescope find_files<CR>')
-vim.keymap.set('n', '<leader>fg', ':Telescope live_grep<CR>')
-vim.keymap.set('n', '<leader>fb', ':Telescope buffers<CR>')
-vim.keymap.set('n', '<leader>fh', ':Telescope help_tags<CR>')
-vim.keymap.set('n', '<leader>=f', ':Format<CR>')
-vim.keymap.set('n', '<leader>=F', ':FormatWrite<CR>')
+keymap('n', '<leader>e', '<cmd>NvimTreeToggle<CR>')
+keymap('n', '<leader>fc', '<cmd>NvimTreeFindFile<CR>')
+keymap('n', '<leader>fr', '<cmd>NvimTreeRefresh<CR>')
+keymap('n', '<leader>ff', '<cmd>Telescope find_files<CR>')
+keymap('n', '<leader>fg', '<cmd>Telescope live_grep<CR>')
+keymap('n', '<leader>bb', '<cmd>Telescope buffers<CR>')
+keymap('n', '<leader>fh', ':Telescope help_tags<CR>')
+keymap('n', '<leader>=f', ':Format<CR>')
+keymap('n', '<leader>=F', ':FormatWrite<CR>')
 -- vim.keymap.set('i', 'jk', '<ESC>')
-vim.keymap.set('n', 'L', '$', opts)
-vim.keymap.set('v', 'L', '$', opts)
-vim.keymap.set('n', 'H', '^', opts)
-vim.keymap.set('v', 'H', '^', opts)
-vim.keymap.set('n', '<C-a>', 'gg<S-v>G', opts)
--- vim.keymap.set('n', '<leader>s', '<Plug>(easymotion-bd-f)')
-vim.keymap.set('n', '<leader>s', '<Plug>(easymotion-sn)')
-vim.keymap.set('n', '<leader>gg', ':LazyGit<CR>', opts)
-vim.keymap.set('i', 'jk', '<ESC>', opts)
+keymap('n', 'L', '$', opts)
+-- vim.keymap.set('n', 'gl', '$', opts)
+keymap('v', 'L', '$', opts)
+-- vim.keymap.set('n', 'H', '^', opts)
+-- vim.keymap.set('n', 'gh', '^', opts)
+keymap('v', 'H', '^', opts)
+keymap('n', '<C-a>', 'gg<S-v>G', opts)
+vim.keymap.set('n', '<leader>j', '<Plug>(easymotion-bd-f)')
+-- keymap('n', '<leader>j', '<Plug>(easymotion-s1)')
+keymap('n', '<leader>gg', ':LazyGit<CR>', opts)
+keymap('i', 'jj', '<ESC>', opts)
+keymap('i', 'jk', '<ESC>', opts)
+keymap('n', '<leader>tr', ':RustRun<CR>', opts)
+keymap('n', '<leader>tt', ':RustTest<CR>', opts)
+keymap('n', '<leader>ta', ':RustTest!<CR>', opts)
 
 
 
-vim.keymap.set('n', '<leader>gd', ':Gitsigns diffthis<CR>')
+keymap('n', '<leader>gd', ':Gitsigns diffthis<CR>')
 
 vim.cmd([[
-  nnoremap <silent> <leader>dn :lua require('dap-python').test_method()<CR>
-  nnoremap <silent> <leader>df :lua require('dap-python').test_class()<CR>
-  vnoremap <silent> <leader>ds <ESC>:lua require('dap-go').debug_selection()<CR>
-  nnoremap <silent> <leader>dut :lua require('dapui').toggle()<CR>
-  nnoremap <slient> <leader>dro :lua require('dap').repl.open()<CR>
-  nnoremap <silent> <F3> :lua require('dap').toggle_breakpoint()<CR>
-  nnoremap <silent> <F5> :lua require('dap').continue()<CR>
-  nnoremap <silent> <F8> :lua require('dap').step_over()<CR>
-  nnoremap <silent> <F7> :lua require('dap').step_into()<CR>
-  nnoremap <silent> <leader>ca :CodeActionMenu<CR>
+  nnoremap <silent> <leader>dn :lua require('dap-python').test_method()<cr>
+  nnoremap <silent> <leader>df :lua require('dap-python').test_class()<cr>
+  vnoremap <silent> <leader>ds <esc>:lua require('dap-go').debug_selection()<cr>
+  nnoremap <silent> <leader>dut :lua require('dapui').toggle()<cr>
+  nnoremap <slient> <leader>dro :lua require('dap').repl.open()<cr>
+  nnoremap <silent> <f3> :lua require('dap').toggle_breakpoint()<cr>
+  nnoremap <silent> <f5> :lua require('dap').continue()<cr>
+  nnoremap <silent> <f8> :lua require('dap').step_over()<cr>
+  nnoremap <silent> <f7> :lua require('dap').step_into()<cr>
+  " nnoremap <silent> <leader>ca :codeactionmenu<cr>
 
 ]])
 
-vim.keymap.set('n', '<leader>dcc', '<cmd>Telescope dap commands<CR>')
-vim.keymap.set('n', '<leader>dcf', '<cmd>Telescope dap configurations<CR>')
-vim.keymap.set('n', '<leader>dl', '<cmd>Telescope dap list_breakpoints<CR>')
-vim.keymap.set('n', '<leader>dv', '<cmd>Telescope dap variables<CR>')
-vim.keymap.set('n', '<leader>df', '<cmd>Telescope dap frames<CR>')
+keymap('n', '<leader>dcc', '<cmd>Telescope dap commands<CR>')
+keymap('n', '<leader>dcf', '<cmd>Telescope dap configurations<CR>')
+keymap('n', '<leader>dl', '<cmd>Telescope dap list_breakpoints<CR>')
+keymap('n', '<leader>dv', '<cmd>Telescope dap variables<CR>')
+keymap('n', '<leader>df', '<cmd>Telescope dap frames<CR>')
 
+
+--Lsp
+
+-- Lspsaga
+keymap("n", "gh", "<cmd>Lspsaga lsp_finder<CR>", { silent = true })
+keymap({ "n", "v" }, "<leader>ca", "<cmd>Lspsaga code_action<CR>")
+keymap("n", "gd", "<cmd>Lspsaga goto_definition<CR>")
+keymap("n", "<leader>rn", "<cmd>Lspsaga rename<CR>", { silent = true })
+keymap("n", "<leader>rp", "<cmd>Lspsaga rename ++project<CR>")
+keymap("n", "<leader>cd", "<cmd>Lspsaga show_line_diagnostics<CR>", { silent = true })
+keymap("n", "<leader>cd", "<cmd>Lspsaga show_cursor_diagnostics<CR>", { silent = true })
+keymap("n", "[e", "<cmd>Lspsaga diagnostic_jump_prev<CR>", { silent = true })
+keymap("n", "]e", "<cmd>Lspsaga diagnostic_jump_next<CR>", { silent = true })
+keymap("n", "[E", function() require("lspsaga.diagnostic").goto_prev({ severity = vim.diagnostic.severity.ERROR }) end,
+    { silent = true })
+keymap("n", "]E", function() require("lspsaga.diagnostic").goto_next({ severity = vim.diagnostic.severity.ERROR }) end,
+    { silent = true })
+-- Outline
+keymap("n", "<leader>o", "<cmd>Lspsaga outline<CR>", { silent = true })
+-- Hover Doc
+keymap("n", "K", "<cmd>Lspsaga hover_doc++<CR>", { silent = true })
+-- Call hierarchy
+keymap("n", "<Leader>ci", "<cmd>Lspsaga incoming_calls<CR>")
+keymap("n", "<Leader>co", "<cmd>Lspsaga outgoing_calls<CR>")
