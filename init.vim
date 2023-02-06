@@ -6,9 +6,16 @@ else
     set cc=80
     " colorscheme abscs
     " colorscheme synthwave84
-    " colorscheme vscode
+    colorscheme vscode
     " colorscheme gruvbox 
-    colorscheme everforest
+    " colorscheme everforest
+    " colorscheme nightfox
+    " colorscheme duskfox
+    " colorscheme terafox
+    " colorscheme dayfox
+    set background=dark
+    " highlight Normal guibg=NONE ctermbg=None
+
     set guifont=Gintronic:h14
     let g:rustfmt_autosave = 1
     set mouse=a
@@ -17,6 +24,9 @@ else
     nnoremap <c-j> <c-w>j
     nnoremap <c-k> <c-w>k
     nnoremap <c-l> <c-w>l
+
+    autocmd FileType sql,mysql,plsql lua require('cmp').setup.buffer({ sources = {{ name = 'vim-dadbod-completion' }} })
+
 endif 
 
 if exists("g:neovide")

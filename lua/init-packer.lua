@@ -20,7 +20,20 @@ return require("packer").startup(function()
 	use("Mofiqul/vscode.nvim")
 	use("Abstract-IDE/Abstract-cs")
 	use("sainnhe/everforest")
-
+	use({
+		"EdenEast/nightfox.nvim",
+		config = function()
+			require("nightfox").setup({
+				options = {
+					styles = {
+						comments = "italic",
+						keywords = "bold",
+						types = "italic, bold",
+					},
+				},
+			})
+		end,
+	})
 	use("karb94/neoscroll.nvim")
 
 	-- lsp

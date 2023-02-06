@@ -29,10 +29,13 @@ vim.keymap.set('n', '<leader>j', '<Plug>(easymotion-bd-f)')
 -- keymap('n', '<leader>j', '<Plug>(easymotion-s1)')
 keymap('n', '<leader>gg', ':LazyGit<CR>', opts)
 keymap('i', 'jj', '<ESC>', opts)
-keymap('i', 'jk', '<ESC>', opts)
+keymap('i', 'jk', '<ESC>la', opts)
+keymap("n", ";;", "A;<ESC>o")
+keymap("i", "j;", "<ESC>A;<ESC>o")
 keymap('n', '<leader>tr', ':RustRun<CR>', opts)
 keymap('n', '<leader>tt', ':RustTest<CR>', opts)
 keymap('n', '<leader>ta', ':RustTest!<CR>', opts)
+keymap('n', '<leader>ss', ':w<CR>')
 
 
 
@@ -49,6 +52,8 @@ vim.cmd([[
   nnoremap <silent> <f8> :lua require('dap').step_over()<cr>
   nnoremap <silent> <f7> :lua require('dap').step_into()<cr>
   " nnoremap <silent> <leader>ca :codeactionmenu<cr>
+  nnoremap <silent> <leader>m :lua require('telescope.builtin').lsp_document_symbols()<cr>
+  nnoremap <silent> gr :lua require('telescope.builtin').lsp_references()<cr>
 
 ]])
 
@@ -82,3 +87,6 @@ keymap("n", "K", "<cmd>Lspsaga hover_doc++<CR>", { silent = true })
 -- Call hierarchy
 keymap("n", "<Leader>ci", "<cmd>Lspsaga incoming_calls<CR>")
 keymap("n", "<Leader>co", "<cmd>Lspsaga outgoing_calls<CR>")
+
+
+
