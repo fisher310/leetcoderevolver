@@ -58,9 +58,13 @@ require("telescope").setup({
         lazygit = {
 
         },
+        noice = {
+
+        }
 	},
 })
 require("telescope").load_extension("fzf")
 require("telescope").load_extension("dap")
 require("telescope").load_extension("lazygit")
+require("telescope").load_extension("noice")
 

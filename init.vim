@@ -5,8 +5,9 @@ else
     set encoding=UTF-8
     set cc=80
     " colorscheme abscs
+    colorscheme dracula
     " colorscheme synthwave84
-    colorscheme vscode
+    " colorscheme vscode
     " colorscheme gruvbox 
     " colorscheme everforest
     " colorscheme nightfox

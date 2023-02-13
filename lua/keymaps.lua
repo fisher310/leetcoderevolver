@@ -8,38 +8,37 @@ keymap("", "<Space>", "<Nop>", opts)
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
-keymap('n', '<leader>e', '<cmd>NvimTreeToggle<CR>')
-keymap('n', '<leader>fc', '<cmd>NvimTreeFindFile<CR>')
-keymap('n', '<leader>fr', '<cmd>NvimTreeRefresh<CR>')
-keymap('n', '<leader>ff', '<cmd>Telescope find_files<CR>')
-keymap('n', '<leader>fg', '<cmd>Telescope live_grep<CR>')
-keymap('n', '<leader>bb', '<cmd>Telescope buffers<CR>')
-keymap('n', '<leader>fh', ':Telescope help_tags<CR>')
-keymap('n', '<leader>=f', ':Format<CR>')
-keymap('n', '<leader>=F', ':FormatWrite<CR>')
+keymap("n", "<leader>e", "<cmd>NvimTreeToggle<CR>")
+keymap("n", "<leader>fc", "<cmd>NvimTreeFindFile<CR>")
+keymap("n", "<leader>fr", "<cmd>NvimTreeRefresh<CR>")
+keymap("n", "<leader>ff", "<cmd>Telescope find_files<CR>")
+keymap("n", "<leader>fg", "<cmd>Telescope live_grep<CR>")
+keymap("n", "<leader>bb", "<cmd>Telescope buffers<CR>")
+keymap("n", "<leader>fh", ":Telescope help_tags<CR>")
+keymap("n", "<leader>=f", ":Format<CR>")
+keymap("n", "<leader>=F", ":FormatWrite<CR>")
+keymap("n", "<leader>n", "<cmd>Telescope noice<CR>")
 -- vim.keymap.set('i', 'jk', '<ESC>')
-keymap('n', 'L', '$', opts)
+keymap("n", "L", "$", opts)
 -- vim.keymap.set('n', 'gl', '$', opts)
-keymap('v', 'L', '$', opts)
+keymap("v", "L", "$", opts)
 -- vim.keymap.set('n', 'H', '^', opts)
 -- vim.keymap.set('n', 'gh', '^', opts)
-keymap('v', 'H', '^', opts)
-keymap('n', '<C-a>', 'gg<S-v>G', opts)
-vim.keymap.set('n', '<leader>j', '<Plug>(easymotion-bd-f)')
+keymap("v", "H", "^", opts)
+keymap("n", "<C-a>", "gg<S-v>G", opts)
+vim.keymap.set("n", "<leader>j", "<Plug>(easymotion-bd-f)")
 -- keymap('n', '<leader>j', '<Plug>(easymotion-s1)')
-keymap('n', '<leader>gg', ':LazyGit<CR>', opts)
-keymap('i', 'jj', '<ESC>', opts)
-keymap('i', 'jk', '<ESC>la', opts)
+keymap("n", "<leader>gg", ":LazyGit<CR>", opts)
+keymap("i", "jj", "<ESC>", opts)
+keymap("i", "jk", "<ESC>la", opts)
 keymap("n", ";;", "A;<ESC>o")
 keymap("i", "j;", "<ESC>A;<ESC>o")
-keymap('n', '<leader>tr', ':RustRun<CR>', opts)
-keymap('n', '<leader>tt', ':RustTest<CR>', opts)
-keymap('n', '<leader>ta', ':RustTest!<CR>', opts)
-keymap('n', '<leader>ss', ':w<CR>')
+keymap("n", "<leader>tr", ":RustRun<CR>", opts)
+keymap("n", "<leader>tt", ":RustTest<CR>", opts)
+keymap("n", "<leader>ta", ":RustTest!<CR>", opts)
+keymap("n", "<leader>ss", ":w<CR>")
 
-
-
-keymap('n', '<leader>gd', ':Gitsigns diffthis<CR>')
+keymap("n", "<leader>gd", ":Gitsigns diffthis<CR>")
 
 vim.cmd([[
   nnoremap <silent> <leader>dn :lua require('dap-python').test_method()<cr>
@@ -57,12 +56,11 @@ vim.cmd([[
 
 ]])
 
-keymap('n', '<leader>dcc', '<cmd>Telescope dap commands<CR>')
-keymap('n', '<leader>dcf', '<cmd>Telescope dap configurations<CR>')
-keymap('n', '<leader>dl', '<cmd>Telescope dap list_breakpoints<CR>')
-keymap('n', '<leader>dv', '<cmd>Telescope dap variables<CR>')
-keymap('n', '<leader>df', '<cmd>Telescope dap frames<CR>')
-
+keymap("n", "<leader>dcc", "<cmd>Telescope dap commands<CR>")
+keymap("n", "<leader>dcf", "<cmd>Telescope dap configurations<CR>")
+keymap("n", "<leader>dl", "<cmd>Telescope dap list_breakpoints<CR>")
+keymap("n", "<leader>dv", "<cmd>Telescope dap variables<CR>")
+keymap("n", "<leader>df", "<cmd>Telescope dap frames<CR>")
 
 --Lsp
 
@@ -76,10 +74,12 @@ keymap("n", "<leader>cd", "<cmd>Lspsaga show_line_diagnostics<CR>", { silent = t
 keymap("n", "<leader>cd", "<cmd>Lspsaga show_cursor_diagnostics<CR>", { silent = true })
 keymap("n", "[e", "<cmd>Lspsaga diagnostic_jump_prev<CR>", { silent = true })
 keymap("n", "]e", "<cmd>Lspsaga diagnostic_jump_next<CR>", { silent = true })
-keymap("n", "[E", function() require("lspsaga.diagnostic").goto_prev({ severity = vim.diagnostic.severity.ERROR }) end,
-    { silent = true })
-keymap("n", "]E", function() require("lspsaga.diagnostic").goto_next({ severity = vim.diagnostic.severity.ERROR }) end,
-    { silent = true })
+keymap("n", "[E", function()
+	require("lspsaga.diagnostic").goto_prev({ severity = vim.diagnostic.severity.ERROR })
+end, { silent = true })
+keymap("n", "]E", function()
+	require("lspsaga.diagnostic").goto_next({ severity = vim.diagnostic.severity.ERROR })
+end, { silent = true })
 -- Outline
 keymap("n", "<leader>o", "<cmd>Lspsaga outline<CR>", { silent = true })
 -- Hover Doc
@@ -87,6 +87,3 @@ keymap("n", "K", "<cmd>Lspsaga hover_doc++<CR>", { silent = true })
 -- Call hierarchy
 keymap("n", "<Leader>ci", "<cmd>Lspsaga incoming_calls<CR>")
 keymap("n", "<Leader>co", "<cmd>Lspsaga outgoing_calls<CR>")
-
-
-

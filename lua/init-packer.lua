@@ -13,6 +13,7 @@ return require("packer").startup(function()
 	})
 
 	-- colorscheme
+    use("dracula/vim")
 	use("NTBBloodbath/doom-one.nvim")
 	use("sainnhe/sonokai")
 	use("artanikin/vim-synthwave84")
